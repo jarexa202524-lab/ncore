@@ -592,13 +592,143 @@
             transform: scaleX(0);
         }
 
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
+
+            /* Disable custom cursor on mobile */
+            body {
+                cursor: auto !important;
+            }
+
+            .cursor,
+            .cursor-follower {
+                display: none !important;
+            }
+
+            /* Navigation adjustments */
+            nav {
+                padding: 1.5rem 1.5rem;
+            }
+
             .nav-links {
                 display: none;
             }
 
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            /* Hero section mobile */
+            .hero-section {
+                min-height: 80vh;
+                padding: 6rem 1.5rem 2rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Cards mobile optimization */
+            .cards-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 8vw, 3rem);
+                margin-bottom: 2.5rem;
+            }
+
             .cards-container {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .interactive-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .card-icon {
+                font-size: 3rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            /* Reduce morph shapes on mobile for performance */
+            .morph-shape {
+                filter: blur(40px);
+                opacity: 0.15;
+            }
+
+            .shape1 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .shape2 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .shape3 {
+                width: 220px;
+                height: 220px;
+            }
+
+            /* Splash screen mobile */
+            .splash-title {
+                font-size: clamp(3rem, 15vw, 6rem);
+                letter-spacing: -2px;
+            }
+
+            .splash-subtitle {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+
+            .enter-btn {
+                padding: 1.2rem 3rem;
+                font-size: 1rem;
+            }
+
+            /* Touch-friendly interactions */
+            .interactive-card:active {
+                transform: translateY(-10px) scale(0.98);
+            }
+
+            .enter-btn:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Tablet optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+
+            .hero-title {
+                font-size: 5rem;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -776,24 +906,30 @@
     </div>
 
     <script>
+        // ============ MOBILE DETECTION ============
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isLowEnd = navigator.hardwareConcurrency <= 4 || isMobile;
+
         // Loading Screen
         setTimeout(() => {
             document.querySelector('.loader-screen').classList.add('hidden');
         }, 2500);
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
+        // Custom Cursor (Desktop only)
+        if (!isMobile) {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
 
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 50);
-        });
+                setTimeout(() => {
+                    cursorFollower.style.left = e.clientX + 'px';
+                    cursorFollower.style.top = e.clientY + 'px';
+                }, 50);
+            });
+        }
 
         // Enter Site Function
         function enterSite() {
@@ -809,14 +945,15 @@
             }, 1000);
         }
 
-        // Particle System
+        // Particle System (optimized for mobile)
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         const particlesArray = [];
-        const numberOfParticles = 100;
+        // Reduce particles on mobile for better performance
+        const numberOfParticles = isMobile ? 30 : (isLowEnd ? 60 : 100);
         const mouse = { x: null, y: null, radius: 150 };
 
         window.addEventListener('mousemove', (e) => {
