@@ -1037,20 +1037,50 @@
             document.querySelector('.loader-screen').classList.add('hidden');
         }, 2500);
 
-        // Custom Cursor (Desktop only)
+        // Custom Cursor (Desktop only) - Optimized for all browsers
         if (!isMobile) {
             const cursor = document.querySelector('.cursor');
             const cursorFollower = document.querySelector('.cursor-follower');
 
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
+            let mouseX = 0, mouseY = 0;
+            let followerX = 0, followerY = 0;
+            let isMoving = false;
 
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 50);
+            // Update mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Instant cursor position
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+
+                if (!isMoving) {
+                    isMoving = true;
+                    animateFollower();
+                }
             });
+
+            // Smooth follower animation with requestAnimationFrame
+            function animateFollower() {
+                // Smooth lerp (linear interpolation) for follower
+                const speed = 0.15; // Adjust for smoothness (0.1 = slower, 0.2 = faster)
+
+                followerX += (mouseX - followerX) * speed;
+                followerY += (mouseY - followerY) * speed;
+
+                cursorFollower.style.left = followerX + 'px';
+                cursorFollower.style.top = followerY + 'px';
+
+                // Continue animation if mouse is still moving
+                const distance = Math.sqrt(Math.pow(mouseX - followerX, 2) + Math.pow(mouseY - followerY, 2));
+
+                if (distance > 0.5) {
+                    requestAnimationFrame(animateFollower);
+                } else {
+                    isMoving = false;
+                }
+            }
         }
 
         // Enter Site Function
