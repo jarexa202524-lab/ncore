@@ -1236,9 +1236,9 @@
             <div class="particle"></div>
         </div>
 
+
         <h1 class="splash-title">NCORE</h1>
         <p class="splash-subtitle">Gaming • Tech • Innovation</p>
-        <button class="enter-btn" onclick="enterSite()">შესვლა</button>
     </div>
 
     <!-- Particle Canvas -->
@@ -1463,6 +1463,11 @@
                 splashAnimationRunning = false;
             }, 1000);
         }
+
+        // ============ AUTO-ENTER: Automatically enter site after 4 seconds ============
+        setTimeout(() => {
+            enterSite();
+        }, 4000); // 4 seconds to enjoy the particle network
 
         // ============ SPLASH INTERACTIVE PARTICLE NETWORK ============
         const splashCanvas = document.getElementById('splash-particle-canvas');
