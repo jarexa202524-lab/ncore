@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCORE - 3D Gaming Matrix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff0080;
+            --dark: #0a0e1a;
+            --darker: #050810;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Matrix Rain Background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        /* Hexagon Pattern */
+        .hex-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 50% 50%, transparent 20%, var(--darker) 21%),
+                linear-gradient(30deg, var(--primary) 12%, transparent 12.5%, transparent 87%, var(--primary) 87.5%, var(--primary)),
+                linear-gradient(150deg, var(--primary) 12%, transparent 12.5%, transparent 87%, var(--primary) 87.5%, var(--primary)),
+                linear-gradient(30deg, var(--primary) 12%, transparent 12.5%, transparent 87%, var(--primary) 87.5%, var(--primary)),
+                linear-gradient(150deg, var(--primary) 12%, transparent 12.5%, transparent 87%, var(--primary) 87.5%, var(--primary));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::before {
+            content: '▸';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+            color: var(--primary);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateX(10px);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+            left: -15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .hero-visual {
+            perspective: 1000px;
+        }
+
+        .floating-card {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            box-shadow:
+                0 20px 60px rgba(0, 255, 136, 0.2),
+                inset 0 0 40px rgba(0, 255, 136, 0.1);
+        }
+
+        /* 3D Cards Grid */
+        .cards-grid {
+            position: relative;
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            z-index: 1;
+        }
+
+        .card-3d {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .card-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card-3d:hover::before {
+            opacity: 1;
+        }
+
+        .card-3d:hover {
+            border-color: var(--primary);
+            box-shadow:
+                0 20px 40px rgba(0, 255, 136, 0.3),
+                inset 0 0 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-tag {
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .card-description {
+            color: #888;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-card {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="hex-pattern"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">NCORE_</div>
+            <ul class="nav-links">
+                <li><a href="#news">სიახლეები</a></li>
+                <li><a href="#games">თამაშები</a></li>
+                <li><a href="#tech">ტექნოლოგია</a></li>
+                <li><a href="#reviews">მიმოხილვა</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>გეიმინგისა და ტექნოლოგიის მომავალი</h1>
+                <p>აღმოაჩინე უახლესი სიახლეები თამაშების, კომპიუტერული ნაწილების, მობილურებისა და გეიმინგ ტექნოლოგიების
+                    შესახებ. ყველაფერი, რაც გჭირდება ერთ სივრცეში.</p>
+                <button class="cta-button">დაიწყე კვლევა →</button>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card" id="floatingCard">🎮</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cards-grid">
+        <div class="card-3d" data-tilt>
+            <div class="card-header">
+                <span class="card-tag">GPU</span>
+                <span class="card-icon">⚡</span>
+            </div>
+            <h3 class="card-title">NVIDIA RTX 5090 Ti გამოვიდა</h3>
+            <p class="card-description">ახალი თაობის გრაფიკული ბარათი, რომელიც ნიშნავს რევოლუციას 8K გეიმინგში და AI
+                rendering-ში.</p>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-label">დონე</span>
+                    <span class="stat-value">9.8/10</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">ნახვები</span>
+                    <span class="stat-value">12.4K</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-3d" data-tilt>
+            <div class="card-header">
+                <span class="card-tag">თამაში</span>
+                <span class="card-icon">🎯</span>
+            </div>
+            <h3 class="card-title">GTA VI ოფიციალური გამოცხადება</h3>
+            <p class="card-description">Rockstar Games-მა საბოლოოდ დაადასტურა GTA-ს მეექვსე ნაწილი. სრული დეტალები და
+                ტრეილერი.</p>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-label">რეიტინგი</span>
+                    <span class="stat-value">10/10</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">ნახვები</span>
+                    <span class="stat-value">45.2K</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-3d" data-tilt>
+            <div class="card-header">
+                <span class="card-tag">მობილური</span>
+                <span class="card-icon">📱</span>
+            </div>
+            <h3 class="card-title">iPhone 16 Pro - სრული მიმოხილვა</h3>
+            <p class="card-description">Apple-ის უახლესი ფლაგმანი სმარტფონის დეტალური ანალიზი, ტესტები და გამოცდილება.
+            </p>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-label">შეფასება</span>
+                    <span class="stat-value">9.5/10</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">ნახვები</span>
+                    <span class="stat-value">8.7K</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-3d" data-tilt>
+            <div class="card-header">
+                <span class="card-tag">კონსოლი</span>
+                <span class="card-icon">🎮</span>
+            </div>
+            <h3 class="card-title">PlayStation 6 სპეციფიკაციები</h3>
+            <p class="card-description">Sony-ს მომავალი თაობის კონსოლის ტექნიკური მახასიათებლები და შესაძლებლობები.</p>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-label">ვარაუდები</span>
+                    <span class="stat-value">95%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">ნახვები</span>
+                    <span class="stat-value">15.3K</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-3d" data-tilt>
+            <div class="card-header">
+                <span class="card-tag">ლეპტოპი</span>
+                <span class="card-icon">💻</span>
+            </div>
+            <h3 class="card-title">ROG Strix G18 - გეიმერის არჩევანი</h3>
+            <p class="card-description">ASUS-ის ძლიერი გეიმინგ ლეპტოპი, რომელიც იდეალურია პროფესიონალებისთვის.</p>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-label">წარმადობა</span>
+                    <span class="stat-value">9.7/10</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">ნახვები</span>
+                    <span class="stat-value">6.1K</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-3d" data-tilt>
+            <div class="card-header">
+                <span class="card-tag">VR</span>
+                <span class="card-icon">🥽</span>
+            </div>
+            <h3 class="card-title">Meta Quest 4 - ახალი განზომილება</h3>
+            <p class="card-description">ვირტუალური რეალობის ტექნოლოგიის ევოლუცია. უჯრედული გრაფიკა და კომფორტი.</p>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-label">ინოვაცია</span>
+                    <span class="stat-value">9.9/10</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">ნახვები</span>
+                    <span class="stat-value">11.8K</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 8, 16, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        // 3D Card Tilt Effect
+        const cards = document.querySelectorAll('[data-tilt]');
+        const floatingCard = document.getElementById('floatingCard');
+
+        function handleTilt(e, element) {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        }
+
+        function resetTilt(element) {
+            element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => handleTilt(e, card));
+            card.addEventListener('mouseleave', () => resetTilt(card));
+        });
+
+        if (floatingCard) {
+            floatingCard.addEventListener('mousemove', (e) => handleTilt(e, floatingCard));
+            floatingCard.addEventListener('mouseleave', () => resetTilt(floatingCard));
+        }
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>
