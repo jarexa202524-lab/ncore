@@ -123,6 +123,7 @@
             }
         }
 
+
         /* Ultra-Innovative Splash Screen */
         .splash {
             position: fixed;
@@ -146,6 +147,16 @@
             opacity: 0;
             transform: scale(1.2);
             pointer-events: none;
+        }
+
+        /* Interactive Particle Canvas for Splash */
+        #splash-particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
         /* Animated Grid Background */
@@ -1193,6 +1204,9 @@
 
     <!-- Splash Screen -->
     <div class="splash">
+        <!-- Interactive Particle Network Canvas -->
+        <canvas id="splash-particle-canvas"></canvas>
+
         <!-- Morph Shapes -->
         <div class="morph-shape shape1"></div>
         <div class="morph-shape shape2"></div>
@@ -1444,8 +1458,122 @@
                 splash.style.display = 'none';
                 nav.classList.add('visible');
                 mainContent.classList.add('visible');
+
+                // Stop splash particles when entering site
+                splashAnimationRunning = false;
             }, 1000);
         }
+
+        // ============ SPLASH INTERACTIVE PARTICLE NETWORK ============
+        const splashCanvas = document.getElementById('splash-particle-canvas');
+        const splashCtx = splashCanvas.getContext('2d');
+        splashCanvas.width = window.innerWidth;
+        splashCanvas.height = window.innerHeight;
+
+        const splashParticlesArray = [];
+        const splashParticleCount = isMobile ? 40 : 80;
+        const splashMouse = { x: null, y: null, radius: isMobile ? 100 : 150 };
+        let splashAnimationRunning = true;
+
+        // Mouse movement tracking for splash
+        window.addEventListener('mousemove', (e) => {
+            splashMouse.x = e.x;
+            splashMouse.y = e.y;
+        });
+
+        class SplashParticle {
+            constructor() {
+                this.x = Math.random() * splashCanvas.width;
+                this.y = Math.random() * splashCanvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = `rgba(0, 255, 136, ${Math.random() * 0.5 + 0.3})`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Mouse interaction - particles move away from mouse
+                if (splashMouse.x && splashMouse.y) {
+                    let dx = splashMouse.x - this.x;
+                    let dy = splashMouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < splashMouse.radius) {
+                        let force = (splashMouse.radius - distance) / splashMouse.radius;
+                        let directionX = dx / distance;
+                        let directionY = dy / distance;
+
+                        this.x -= directionX * force * 3;
+                        this.y -= directionY * force * 3;
+                    }
+                }
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > splashCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > splashCanvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                splashCtx.fillStyle = this.color;
+                splashCtx.beginPath();
+                splashCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                splashCtx.fill();
+            }
+        }
+
+        function initSplashParticles() {
+            splashParticlesArray.length = 0;
+            for (let i = 0; i < splashParticleCount; i++) {
+                splashParticlesArray.push(new SplashParticle());
+            }
+        }
+
+        function connectSplashParticles() {
+            for (let a = 0; a < splashParticlesArray.length; a++) {
+                for (let b = a + 1; b < splashParticlesArray.length; b++) {
+                    let dx = splashParticlesArray[a].x - splashParticlesArray[b].x;
+                    let dy = splashParticlesArray[a].y - splashParticlesArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        let opacity = 1 - (distance / 120);
+                        splashCtx.strokeStyle = `rgba(0, 255, 136, ${opacity * 0.3})`;
+                        splashCtx.lineWidth = 1;
+                        splashCtx.beginPath();
+                        splashCtx.moveTo(splashParticlesArray[a].x, splashParticlesArray[a].y);
+                        splashCtx.lineTo(splashParticlesArray[b].x, splashParticlesArray[b].y);
+                        splashCtx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateSplashParticles() {
+            if (!splashAnimationRunning) return;
+
+            splashCtx.clearRect(0, 0, splashCanvas.width, splashCanvas.height);
+
+            for (let i = 0; i < splashParticlesArray.length; i++) {
+                splashParticlesArray[i].update();
+                splashParticlesArray[i].draw();
+            }
+
+            connectSplashParticles();
+            requestAnimationFrame(animateSplashParticles);
+        }
+
+        initSplashParticles();
+        animateSplashParticles();
+
+        // Resize splash canvas
+        window.addEventListener('resize', () => {
+            splashCanvas.width = window.innerWidth;
+            splashCanvas.height = window.innerHeight;
+            initSplashParticles();
+        });
 
         // Particle System (optimized for mobile)
         const canvas = document.getElementById('particle-canvas');
