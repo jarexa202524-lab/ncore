@@ -29,32 +29,18 @@
             background: #000;
             color: #fff;
             overflow-x: hidden;
-            cursor: none;
+            /* cursor: none; - Removed to show normal cursor */
         }
 
-        /* Custom Cursor */
+        /* Custom Cursor - DISABLED */
         .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
+            display: none;
+            /* Disabled - normal cursor */
         }
 
         .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--secondary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.15s ease;
-            opacity: 0.5;
+            display: none;
+            /* Disabled - normal cursor */
         }
 
         /* Fast Loading Screen */
@@ -1262,20 +1248,6 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="word gradient-text">გეიმინგის</span>
-                    <span class="word gradient-text">და</span>
-                    <span class="word gradient-text">ტექნოლოგიის</span>
-                </h1>
-                <p class="hero-description">
-                    სიახლეები თამაშების, კომპიუტერული ნაწილების, მობილურების და ყველაფრის შესახებ, რაც გეიმინგს ეხება
-                </p>
-            </div>
-        </section>
-
         <!-- Cards Section -->
         <section class="cards-section">
             <h2 class="section-title">უახლესი სიახლეები</h2>
