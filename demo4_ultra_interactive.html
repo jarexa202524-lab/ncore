@@ -1066,8 +1066,169 @@
             }
 
             75% {
-                transform: translate(50px, 50px) scale(1.1);
                 opacity: 0.9;
+            }
+        }
+
+        /* ============= ANIMATED SCROLL INDICATOR ============= */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10;
+            animation: scrollIndicatorFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes scrollIndicatorFloat {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* Animated Mouse Icon */
+        .scroll-mouse {
+            width: 30px;
+            height: 50px;
+            border: 3px solid var(--primary);
+            border-radius: 20px;
+            position: relative;
+            box-shadow:
+                0 0 20px rgba(0, 255, 136, 0.4),
+                inset 0 0 10px rgba(0, 255, 136, 0.2);
+            animation: mousePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes mousePulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 20px rgba(0, 255, 136, 0.4),
+                    inset 0 0 10px rgba(0, 255, 136, 0.2);
+                border-color: var(--primary);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 30px rgba(0, 255, 136, 0.8),
+                    inset 0 0 15px rgba(0, 255, 136, 0.4);
+                border-color: var(--secondary);
+            }
+        }
+
+        /* Mouse Wheel Animation */
+        .scroll-wheel {
+            width: 4px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 2px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: wheelScroll 2s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        @keyframes wheelScroll {
+            0% {
+                top: 8px;
+                opacity: 1;
+            }
+
+            50% {
+                top: 20px;
+                opacity: 0.5;
+            }
+
+            100% {
+                top: 28px;
+                opacity: 0;
+            }
+        }
+
+        /* Cascading Arrows */
+        .scroll-arrows {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 3px solid var(--primary);
+            border-bottom: 3px solid var(--primary);
+            transform: rotate(45deg);
+            animation: arrowBounce 2s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+        }
+
+        .scroll-arrow:nth-child(1) {
+            animation-delay: 0s;
+            opacity: 0.4;
+        }
+
+        .scroll-arrow:nth-child(2) {
+            animation-delay: 0.15s;
+            opacity: 0.7;
+        }
+
+        .scroll-arrow:nth-child(3) {
+            animation-delay: 0.3s;
+            opacity: 1;
+        }
+
+        @keyframes arrowBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                border-color: var(--primary);
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(10px);
+                border-color: var(--secondary);
+            }
+        }
+
+        /* Scroll Text */
+        .scroll-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg,
+                    var(--primary) 0%,
+                    var(--secondary) 50%,
+                    var(--primary) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: scrollTextShine 3s linear infinite;
+            margin: 0;
+        }
+
+        @keyframes scrollTextShine {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
             }
         }
 
@@ -1605,6 +1766,19 @@
                     <div class="trail-particle"></div>
                     <div class="trail-particle"></div>
                 </div>
+            </div>
+
+            <!-- ANIMATED SCROLL INDICATOR -->
+            <div class="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <div class="scroll-arrows">
+                    <div class="scroll-arrow"></div>
+                    <div class="scroll-arrow"></div>
+                    <div class="scroll-arrow"></div>
+                </div>
+                <p class="scroll-text">სქროლი ქვემოთ</p>
             </div>
         </section>
 
