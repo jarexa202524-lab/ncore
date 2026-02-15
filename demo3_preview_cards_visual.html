@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VARIANT 3: Section Preview Cards - NCORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff0080;
+        }
+
+        /* SECTION PREVIEW CARDS - BOTTOM BAR */
+        .section-cards {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 2px solid var(--primary);
+            padding: 0.8rem 1rem;
+            z-index: 9999;
+            box-shadow: 0 -10px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .cards-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .section-card {
+            min-width: 120px;
+            padding: 1rem;
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .section-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow:
+                0 10px 30px rgba(0, 255, 136, 0.4),
+                inset 0 0 20px rgba(0, 255, 136, 0.1);
+        }
+
+        .section-card.active {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: var(--primary);
+            box-shadow:
+                0 0 30px rgba(0, 255, 136, 0.5),
+                inset 0 0 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .section-card.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+
+        .section-card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+
+        .section-card:hover .card-label,
+        .section-card.active .card-label {
+            color: var(--primary);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary);
+            color: #000;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s;
+        }
+
+        .section-card.visited .card-badge {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Demo Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+        }
+
+        #hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
+        }
+
+        #news {
+            background: linear-gradient(135deg, #0a1a0a 0%, #0a0a0a 100%);
+        }
+
+        #games {
+            background: linear-gradient(135deg, #0a0a1a 0%, #0a0a0a 100%);
+        }
+
+        #tech {
+            background: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 100%);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .section-card {
+                min-width: 90px;
+                padding: 0.8rem 0.5rem;
+            }
+
+            .card-icon {
+                font-size: 1.5rem;
+            }
+
+            .card-label {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- VARIANT 3: SECTION PREVIEW CARDS -->
+    <div class="section-cards">
+        <div class="cards-container">
+            <div class="section-card active" onclick="navigateTo('hero')" data-section="hero">
+                <span class="card-badge">✓</span>
+                <div class="card-icon">🏠</div>
+                <div class="card-label">Hero</div>
+            </div>
+            <div class="section-card" onclick="navigateTo('news')" data-section="news">
+                <span class="card-badge">✓</span>
+                <div class="card-icon">📰</div>
+                <div class="card-label">News</div>
+            </div>
+            <div class="section-card" onclick="navigateTo('games')" data-section="games">
+                <span class="card-badge">✓</span>
+                <div class="card-icon">🎮</div>
+                <div class="card-label">Games</div>
+            </div>
+            <div class="section-card" onclick="navigateTo('tech')" data-section="tech">
+                <span class="card-badge">✓</span>
+                <div class="card-icon">💻</div>
+                <div class="card-label">Tech</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Sections -->
+    <section id="hero">
+        <div>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">VARIANT 3</div>
+            <div style="font-size: 2rem; color: var(--primary);">Section Preview Cards</div>
+            <div style="font-size: 1.2rem; margin-top: 2rem; opacity: 0.7;">
+                ↓ Look at the bottom!
+                <br>Click cards to navigate
+            </div>
+        </div>
+    </section>
+    <section id="news">NEWS SECTION</section>
+    <section id="games">GAMES SECTION</section>
+    <section id="tech">TECH SECTION</section>
+
+    <script>
+        const cards = document.querySelectorAll('.section-card');
+        const sections = ['hero', 'news', 'games', 'tech'];
+
+        // Navigate to section
+        function navigateTo(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update on scroll
+        window.addEventListener('scroll', () => {
+            let currentSection = 'hero';
+
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                const rect = section.getBoundingClientRect();
+
+                // Determine current section
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    currentSection = id;
+                }
+
+                // Mark as visited
+                if (rect.top < window.innerHeight) {
+                    const card = document.querySelector(`[data-section="${id}"]`);
+                    if (card) card.classList.add('visited');
+                }
+            });
+
+            // Update active state
+            cards.forEach(card => {
+                const section = card.getAttribute('data-section');
+                card.classList.toggle('active', section === currentSection);
+            });
+        });
+
+        // Mobile swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const cardsContainer = document.querySelector('.cards-container');
+
+        cardsContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        cardsContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left - scroll right
+                cardsContainer.scrollBy({ left: 100, behavior: 'smooth' });
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right - scroll left
+                cardsContainer.scrollBy({ left: -100, behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+
+</html>

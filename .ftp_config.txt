@@ -1,0 +1,18 @@
+FTP Configuration for NCORE.GE
+================================
+
+GitHub Repository:
+https://github.com/jarexa202524-lab/ncore.git
+
+FTP Details:
+Host: 185.229.111.17
+Username: ncorege
+Password: Chemiyle242424@
+
+Database Details:
+Database Name: ncorege_corebuild
+DB Host: 185.229.111.17 (assumed same as FTP)
+DB Username: ncorege (assumed same as FTP)
+DB Password: Chemiyle242424@ (assumed same as FTP)
+
+Upload Directory: /public_html (or root - to be determined)

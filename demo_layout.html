@@ -1724,31 +1724,17 @@
         /* ============= HERO SLIDER CSS ============= */
         .hero-slider-container {
             width: 100%;
-            max-width: 1200px;
-            /* Standard Container */
-            aspect-ratio: 16 / 9;
-            /* Enforce 16:9 Ratio */
-            height: auto;
-            /* Let aspect ratio define height */
-            min-height: unset;
+            max-width: 1400px;
+            height: 60vh;
+            min-height: 500px;
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
             border: 1px solid rgba(0, 255, 136, 0.2);
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
-        }
-
-        /* Mobile Optimization */
-        @media (max-width: 768px) {
-            .hero-slider-container {
-                aspect-ratio: 4 / 3;
-                /* Taller on mobile */
-                max-height: 500px;
-                border-radius: 15px;
-            }
         }
 
         .hero-slider-wrapper {
@@ -2575,201 +2561,6 @@
             }
         }
     </style>
-    </style>
-    <style>
-        /* =========================================
-           SYSTEM-WIDE MOBILE & TABLET OPTIMIZATION
-           ========================================= */
-
-        @media screen and (max-width: 1024px) {
-
-            /* Adjust Container Widths */
-            .container,
-            .hero-content,
-            .cards-container {
-                width: 95%;
-                max-width: 100%;
-                padding: 0 1rem;
-            }
-
-            /* Fix Terminal Section Grid */
-            .terminal-row {
-                grid-template-columns: 1fr auto;
-                /* Name + Status */
-                gap: 15px;
-                padding: 15px;
-            }
-
-            .t-date {
-                grid-column: 1 / -1;
-                font-size: 1rem;
-                color: var(--primary);
-                order: -1;
-                /* Move date to top */
-            }
-
-            .t-info-block {
-                grid-column: 1 / 2;
-            }
-
-            .t-platform-icon {
-                display: none;
-                /* Hide icons on tablet/mobile to save space */
-            }
-
-            .t-status {
-                grid-column: 2;
-                text-align: right;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-
-            /* 1. Global Layout Fixes */
-            body {
-                overflow-x: hidden;
-                /* Prevent horizontal scroll */
-            }
-
-            /* 2. Navigation */
-            .nav-search-container {
-                display: none;
-                /* Keep hidden on mobile, maybe add icon toggle later */
-            }
-
-            nav {
-                padding: 1rem 1.5rem;
-                /* Reduce nav padding */
-            }
-
-            .logo {
-                font-size: 1.8rem;
-                /* Smaller Logo */
-            }
-
-            /* 3. Hero Slider Mobile */
-            .hero-slider-container {
-                height: auto !important;
-                aspect-ratio: 4/5 !important;
-                /* Taller format for Mobile (Poster style) */
-                max-height: 500px;
-                border-radius: 15px;
-                margin-top: 20px;
-            }
-
-            .hero-slide {
-                padding: 1rem;
-                background-position: center top;
-            }
-
-            .slide-title {
-                font-size: 2rem !important;
-                /* Readable Title */
-                line-height: 1.1;
-                margin-bottom: 0.5rem;
-            }
-
-            .slide-subtitle {
-                font-size: 0.9rem !important;
-                line-height: 1.4;
-                max-width: 100%;
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                /* Limit lines */
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-
-            /* ENABLE CONTROLS ON MOBILE */
-            .slider-nav {
-                display: flex !important;
-                /* Force Show Arrows */
-                width: 35px;
-                height: 35px;
-                background: rgba(0, 0, 0, 0.3);
-                border: none;
-            }
-
-            .slider-nav i {
-                font-size: 0.8rem;
-            }
-
-            /* 4. Terminal Section Mobile */
-            .upcoming-terminal-section {
-                padding: 2rem 1rem !important;
-            }
-
-            .section-title {
-                font-size: 1.8rem !important;
-                flex-wrap: wrap;
-                /* Allow wrapping */
-            }
-
-            .terminal-row {
-                display: flex;
-                /* Stack vertically on small mobile */
-                flex-direction: column;
-                align-items: flex-start;
-                position: relative;
-            }
-
-            .t-status {
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                text-align: right;
-            }
-
-            /* 5. Cards Section */
-            .cards-container {
-                grid-template-columns: 1fr !important;
-                /* Single Column */
-                gap: 1.5rem;
-            }
-
-            .interactive-card {
-                padding: 1.5rem;
-            }
-
-            .card-title {
-                font-size: 1.4rem;
-            }
-
-            /* 6. Footer / Socials */
-            .social-icons-container {
-                gap: 0.8rem;
-            }
-
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            /* 7. Hide Splash Early if stuck? No, logic handles it. 
-               Just ensure text fits */
-            .splash-title {
-                font-size: 12vw !important;
-                /* Responsive text */
-            }
-
-            .enter-btn {
-                padding: 1rem 3rem;
-                width: 80%;
-                text-align: center;
-            }
-
-            /* 8. Fix Stats Panel (if strictly needing optimization) */
-            .right-stats-col {
-                display: none;
-                /* Hide live stats on mobile to save bandwidth/space? Or stack? */
-                /* User removed live stats previously, so this is moot, but safe to ignore */
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -2838,8 +2629,9 @@
 
         <ul class="nav-links">
             <li><a href="#news">სიახლეები</a></li>
-            <li><a href="login.php">შესვლა</a></li>
-            <li><a href="register.php">რეგისტრაცია</a></li>
+            <li><a href="#games">თამაშები</a></li>
+            <li><a href="#tech">ტექნოლოგია</a></li>
+            <li><a href="#reviews">მიმოხილვა</a></li>
         </ul>
         <div class="burger-menu" onclick="toggleMobileMenu()">
             <div class="burger-line"></div>
@@ -2930,7 +2722,6 @@
                 </div>
             </div>
 
-            <!-- ANIMATED SCROLL INDICATOR (RESTORED) -->
             <!-- ANIMATED SCROLL INDICATOR (RESTORED) -->
             <div class="scroll-indicator">
                 <div class="scroll-mouse">
@@ -3160,572 +2951,648 @@
 
         </section>
 
-        <!-- Social Media Icons Section -->
-        <section class="social-icons-section">
-            <div class="social-icons-container">
-                <a href="#" class="social-icon" title="Discord" target="_blank"><i class="fab fa-discord"></i></a>
-                <a href="#" class="social-icon" title="Telegram" target="_blank"><i class="fab fa-telegram"></i></a>
-                <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon" title="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon" title="TikTok" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <!-- LIVE STATS / TOP SELLERS SPLIT SECTION -->
+        <section class="live-stats-split-section" style="margin-top: 4rem; padding: 0 20px; margin-bottom: 4rem;">
+            <div class="container"
+                style="max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+
+                <!-- LEFT COLUMN: TOP SELLERS (GLOBAL) -->
+                <div class="left-stats-col">
+                    <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">
+                        TOP 15 <span style="color: #FFD700;">BEST SELLING</span> GAMES
+                    </h2>
+
+                    <div class="hero-stats-panel"
+                        style="height: auto; width: 100%; box-shadow: 0 0 50px rgba(0,0,0,0.5);">
+                        <div class="stats-header">
+                            <h3 class="stats-title">OFFICIAL WEEKLY CHART (GLOBAL)</h3>
+                            <div class="live-badge-small"
+                                style="background: rgba(255, 215, 0, 0.1); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.3);">
+                                <i class="fas fa-chart-line" style="font-size:10px;"></i> OFFICIAL
+                            </div>
+                        </div>
+                        <div class="stats-list-container" id="top-sellers-list"
+                            style="max-height: 600px; overflow-y: auto;">
+                            <!-- Content loaded by JS -->
+                            <div style="padding:20px; text-align:center; color:#888; font-family: monospace;">
+                                <i class="fas fa-spinner fa-spin"></i> Fetching Official Data...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: LIVE PLAYER COUNT -->
+                <div class="right-stats-col">
+                    <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">
+                        TOP 15 <span style="color: var(--accent);">LIVE</span> GAMES
+                    </h2>
+
+                    <div class="hero-stats-panel"
+                        style="height: auto; width: 100%; box-shadow: 0 0 50px rgba(0,0,0,0.5);">
+                        <div class="stats-header">
+                            <h3 class="stats-title">REAL-TIME PLAYER COUNT</h3>
+                            <div class="live-badge-small" id="live-badge-main">
+                                <i class="fas fa-circle" style="font-size:6px; color:var(--accent);"></i> LIVE
+                            </div>
+                        </div>
+                        <div class="stats-list-container" id="main-stats-list"
+                            style="max-height: 600px; overflow-y: auto;">
+                            <!-- Content loaded by JS -->
+                            <div style="padding:20px; text-align:center; color:#666;">Loading Stats...</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Live Chat Widget -->
-        <div class="chat-widget" onclick="openChat()" title="Live Chat">
-            <i class="fas fa-comments"></i>
-            <span class="chat-badge">3</span>
+    </div>
+
+
+
+    <!-- Social Media Icons Section -->
+    <section class="social-icons-section">
+        <div class="social-icons-container">
+            <a href="#" class="social-icon" title="Discord" target="_blank">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" class="social-icon" title="Telegram" target="_blank">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="social-icon" title="Facebook" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon" title="Instagram" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon" title="YouTube" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" class="social-icon" title="Twitter/X" target="_blank">
+                <i class="fab fa-x-twitter"></i>
+            </a>
         </div>
+    </section>
 
-        <script>
-            // ============ MOBILE DETECTION ============
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isLowEnd = navigator.hardwareConcurrency <= 4 || isMobile;
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Dark/Light Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <!-- Live Chat Widget -->
+    <div class="chat-widget" onclick="openChat()" title="Live Chat">
+        <i class="fas fa-comments"></i>
+        <span class="chat-badge">3</span>
+    </div>
+
+    <script>
+        // ============ MOBILE DETECTION ============
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isLowEnd = navigator.hardwareConcurrency <= 4 || isMobile;
 
 
 
-            // Custom Cursor (Desktop only) - Optimized for all browsers
-            if (!isMobile) {
-                const cursor = document.querySelector('.cursor');
-                const cursorFollower = document.querySelector('.cursor-follower');
+        // Custom Cursor (Desktop only) - Optimized for all browsers
+        if (!isMobile) {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
 
-                let mouseX = 0, mouseY = 0;
-                let followerX = 0, followerY = 0;
-                let isMoving = false;
+            let mouseX = 0, mouseY = 0;
+            let followerX = 0, followerY = 0;
+            let isMoving = false;
 
-                // Update mouse position
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
+            // Update mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
 
-                    // Instant cursor position
-                    cursor.style.left = mouseX + 'px';
-                    cursor.style.top = mouseY + 'px';
+                // Instant cursor position
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
 
-                    if (!isMoving) {
-                        isMoving = true;
-                        animateFollower();
+                if (!isMoving) {
+                    isMoving = true;
+                    animateFollower();
+                }
+            });
+
+            // Smooth follower animation with requestAnimationFrame
+            function animateFollower() {
+                // Smooth lerp (linear interpolation) for follower
+                const speed = 0.15; // Adjust for smoothness (0.1 = slower, 0.2 = faster)
+
+                followerX += (mouseX - followerX) * speed;
+                followerY += (mouseY - followerY) * speed;
+
+                cursorFollower.style.left = followerX + 'px';
+                cursorFollower.style.top = followerY + 'px';
+
+                // Continue animation if mouse is still moving
+                const distance = Math.sqrt(Math.pow(mouseX - followerX, 2) + Math.pow(mouseY - followerY, 2));
+
+                if (distance > 0.5) {
+                    requestAnimationFrame(animateFollower);
+                } else {
+                    isMoving = false;
+                }
+            }
+        }
+
+        // Enter Site Function
+        function enterSite() {
+            const splash = document.querySelector('.splash');
+            const nav = document.querySelector('nav');
+            const mainContent = document.querySelector('.main-content');
+
+            splash.classList.add('hide');
+            setTimeout(() => {
+                splash.style.display = 'none';
+                nav.classList.add('visible');
+                mainContent.classList.add('visible');
+
+                // Stop splash particles when entering site
+                splashAnimationRunning = false;
+            }, 1000);
+        }
+
+        // ============ AUTO-ENTER: Instantly enter site after load ============
+        setTimeout(() => {
+            enterSite();
+        }, 1200); // 1.2 seconds total (just enough to see the effect)
+
+        // ============ SPLASH INTERACTIVE PARTICLE NETWORK ============
+        const splashCanvas = document.getElementById('splash-particle-canvas');
+        const splashCtx = splashCanvas.getContext('2d');
+        splashCanvas.width = window.innerWidth;
+        splashCanvas.height = window.innerHeight;
+
+        const splashParticlesArray = [];
+        const splashParticleCount = isMobile ? 40 : 80;
+        const splashMouse = { x: null, y: null, radius: isMobile ? 100 : 150 };
+        let splashAnimationRunning = true;
+
+        // Mouse movement tracking for splash
+        window.addEventListener('mousemove', (e) => {
+            splashMouse.x = e.x;
+            splashMouse.y = e.y;
+        });
+
+        class SplashParticle {
+            constructor() {
+                this.x = Math.random() * splashCanvas.width;
+                this.y = Math.random() * splashCanvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = `rgba(0, 255, 136, ${Math.random() * 0.5 + 0.3})`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Mouse interaction - particles move away from mouse
+                if (splashMouse.x && splashMouse.y) {
+                    let dx = splashMouse.x - this.x;
+                    let dy = splashMouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < splashMouse.radius) {
+                        let force = (splashMouse.radius - distance) / splashMouse.radius;
+                        let directionX = dx / distance;
+                        let directionY = dy / distance;
+
+                        this.x -= directionX * force * 3;
+                        this.y -= directionY * force * 3;
                     }
-                });
+                }
 
-                // Smooth follower animation with requestAnimationFrame
-                function animateFollower() {
-                    // Smooth lerp (linear interpolation) for follower
-                    const speed = 0.15; // Adjust for smoothness (0.1 = slower, 0.2 = faster)
+                // Bounce off edges
+                if (this.x < 0 || this.x > splashCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > splashCanvas.height) this.speedY *= -1;
+            }
 
-                    followerX += (mouseX - followerX) * speed;
-                    followerY += (mouseY - followerY) * speed;
+            draw() {
+                splashCtx.fillStyle = this.color;
+                splashCtx.beginPath();
+                splashCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                splashCtx.fill();
+            }
+        }
 
-                    cursorFollower.style.left = followerX + 'px';
-                    cursorFollower.style.top = followerY + 'px';
+        function initSplashParticles() {
+            splashParticlesArray.length = 0;
+            for (let i = 0; i < splashParticleCount; i++) {
+                splashParticlesArray.push(new SplashParticle());
+            }
+        }
 
-                    // Continue animation if mouse is still moving
-                    const distance = Math.sqrt(Math.pow(mouseX - followerX, 2) + Math.pow(mouseY - followerY, 2));
+        function connectSplashParticles() {
+            for (let a = 0; a < splashParticlesArray.length; a++) {
+                for (let b = a + 1; b < splashParticlesArray.length; b++) {
+                    let dx = splashParticlesArray[a].x - splashParticlesArray[b].x;
+                    let dy = splashParticlesArray[a].y - splashParticlesArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance > 0.5) {
-                        requestAnimationFrame(animateFollower);
-                    } else {
-                        isMoving = false;
+                    if (distance < 120) {
+                        let opacity = 1 - (distance / 120);
+                        splashCtx.strokeStyle = `rgba(0, 255, 136, ${opacity * 0.3})`;
+                        splashCtx.lineWidth = 1;
+                        splashCtx.beginPath();
+                        splashCtx.moveTo(splashParticlesArray[a].x, splashParticlesArray[a].y);
+                        splashCtx.lineTo(splashParticlesArray[b].x, splashParticlesArray[b].y);
+                        splashCtx.stroke();
                     }
                 }
             }
+        }
 
-            // Enter Site Function
-            function enterSite() {
-                const splash = document.querySelector('.splash');
-                const nav = document.querySelector('nav');
-                const mainContent = document.querySelector('.main-content');
+        function animateSplashParticles() {
+            if (!splashAnimationRunning) return;
 
-                splash.classList.add('hide');
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    nav.classList.add('visible');
-                    mainContent.classList.add('visible');
+            splashCtx.clearRect(0, 0, splashCanvas.width, splashCanvas.height);
 
-                    // Stop splash particles when entering site
-                    splashAnimationRunning = false;
-                }, 1000);
+            for (let i = 0; i < splashParticlesArray.length; i++) {
+                splashParticlesArray[i].update();
+                splashParticlesArray[i].draw();
             }
 
-            // ============ AUTO-ENTER: Instantly enter site after load ============
-            setTimeout(() => {
-                enterSite();
-            }, 1200); // 1.2 seconds total (just enough to see the effect)
+            connectSplashParticles();
+            requestAnimationFrame(animateSplashParticles);
+        }
 
-            // ============ SPLASH INTERACTIVE PARTICLE NETWORK ============
-            const splashCanvas = document.getElementById('splash-particle-canvas');
-            const splashCtx = splashCanvas.getContext('2d');
+        initSplashParticles();
+        animateSplashParticles();
+
+        // Resize splash canvas
+        window.addEventListener('resize', () => {
             splashCanvas.width = window.innerWidth;
             splashCanvas.height = window.innerHeight;
-
-            const splashParticlesArray = [];
-            const splashParticleCount = isMobile ? 40 : 80;
-            const splashMouse = { x: null, y: null, radius: isMobile ? 100 : 150 };
-            let splashAnimationRunning = true;
-
-            // Mouse movement tracking for splash
-            window.addEventListener('mousemove', (e) => {
-                splashMouse.x = e.x;
-                splashMouse.y = e.y;
-            });
-
-            class SplashParticle {
-                constructor() {
-                    this.x = Math.random() * splashCanvas.width;
-                    this.y = Math.random() * splashCanvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = Math.random() * 0.5 - 0.25;
-                    this.speedY = Math.random() * 0.5 - 0.25;
-                    this.color = `rgba(0, 255, 136, ${Math.random() * 0.5 + 0.3})`;
-                }
-
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    // Mouse interaction - particles move away from mouse
-                    if (splashMouse.x && splashMouse.y) {
-                        let dx = splashMouse.x - this.x;
-                        let dy = splashMouse.y - this.y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < splashMouse.radius) {
-                            let force = (splashMouse.radius - distance) / splashMouse.radius;
-                            let directionX = dx / distance;
-                            let directionY = dy / distance;
-
-                            this.x -= directionX * force * 3;
-                            this.y -= directionY * force * 3;
-                        }
-                    }
-
-                    // Bounce off edges
-                    if (this.x < 0 || this.x > splashCanvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > splashCanvas.height) this.speedY *= -1;
-                }
-
-                draw() {
-                    splashCtx.fillStyle = this.color;
-                    splashCtx.beginPath();
-                    splashCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    splashCtx.fill();
-                }
-            }
-
-            function initSplashParticles() {
-                splashParticlesArray.length = 0;
-                for (let i = 0; i < splashParticleCount; i++) {
-                    splashParticlesArray.push(new SplashParticle());
-                }
-            }
-
-            function connectSplashParticles() {
-                for (let a = 0; a < splashParticlesArray.length; a++) {
-                    for (let b = a + 1; b < splashParticlesArray.length; b++) {
-                        let dx = splashParticlesArray[a].x - splashParticlesArray[b].x;
-                        let dy = splashParticlesArray[a].y - splashParticlesArray[b].y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 120) {
-                            let opacity = 1 - (distance / 120);
-                            splashCtx.strokeStyle = `rgba(0, 255, 136, ${opacity * 0.3})`;
-                            splashCtx.lineWidth = 1;
-                            splashCtx.beginPath();
-                            splashCtx.moveTo(splashParticlesArray[a].x, splashParticlesArray[a].y);
-                            splashCtx.lineTo(splashParticlesArray[b].x, splashParticlesArray[b].y);
-                            splashCtx.stroke();
-                        }
-                    }
-                }
-            }
-
-            function animateSplashParticles() {
-                if (!splashAnimationRunning) return;
-
-                splashCtx.clearRect(0, 0, splashCanvas.width, splashCanvas.height);
-
-                for (let i = 0; i < splashParticlesArray.length; i++) {
-                    splashParticlesArray[i].update();
-                    splashParticlesArray[i].draw();
-                }
-
-                connectSplashParticles();
-                requestAnimationFrame(animateSplashParticles);
-            }
-
             initSplashParticles();
-            animateSplashParticles();
+        });
 
-            // Resize splash canvas
-            window.addEventListener('resize', () => {
-                splashCanvas.width = window.innerWidth;
-                splashCanvas.height = window.innerHeight;
-                initSplashParticles();
-            });
+        // Particle System (optimized for mobile)
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            // Particle System (optimized for mobile)
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        const particlesArray = [];
+        // Reduce particles on mobile for better performance
+        const numberOfParticles = isMobile ? 30 : (isLowEnd ? 60 : 100);
+        const mouse = { x: null, y: null, radius: 150 };
 
-            const particlesArray = [];
-            // Reduce particles on mobile for better performance
-            const numberOfParticles = isMobile ? 30 : (isLowEnd ? 60 : 100);
-            const mouse = { x: null, y: null, radius: 150 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
 
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.x;
-                mouse.y = e.y;
-            });
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = `hsl(${Math.random() * 60 + 140}, 100%, 50%)`;
+            }
 
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 1 - 0.5;
-                    this.color = `hsl(${Math.random() * 60 + 140}, 100%, 50%)`;
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+                // Mouse interaction
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                        this.x += 2;
+                    }
+                    if (mouse.x > this.x && this.x > this.size * 10) {
+                        this.x -= 2;
+                    }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                        this.y += 2;
+                    }
+                    if (mouse.y > this.y && this.y > this.size * 10) {
+                        this.y -= 2;
+                    }
                 }
+            }
 
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+        function init() {
+            particlesArray.length = 0;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
 
-                    // Mouse interaction
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
+        function connectParticles() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    const dx = particlesArray[a].x - particlesArray[b].x;
+                    const dy = particlesArray[a].y - particlesArray[b].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < mouse.radius) {
-                        if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-                            this.x += 2;
-                        }
-                        if (mouse.x > this.x && this.x > this.size * 10) {
-                            this.x -= 2;
-                        }
-                        if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-                            this.y += 2;
-                        }
-                        if (mouse.y > this.y && this.y > this.size * 10) {
-                            this.y -= 2;
-                        }
-                    }
-                }
-
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            function init() {
-                particlesArray.length = 0;
-                for (let i = 0; i < numberOfParticles; i++) {
-                    particlesArray.push(new Particle());
-                }
-            }
-
-            function connectParticles() {
-                for (let a = 0; a < particlesArray.length; a++) {
-                    for (let b = a; b < particlesArray.length; b++) {
-                        const dx = particlesArray[a].x - particlesArray[b].x;
-                        const dy = particlesArray[a].y - particlesArray[b].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 100) {
-                            ctx.strokeStyle = `rgba(0, 255, 136, ${1 - distance / 100})`;
-                            ctx.lineWidth = 1;
-                            ctx.beginPath();
-                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                            ctx.stroke();
-                        }
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(0, 255, 136, ${1 - distance / 100})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
                     }
                 }
             }
+        }
 
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                for (let i = 0; i < particlesArray.length; i++) {
-                    particlesArray[i].update();
-                    particlesArray[i].draw();
-                }
-                connectParticles();
-                requestAnimationFrame(animate);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
             }
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
 
+        init();
+        animate();
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollProgress.style.transform = `scaleX(${scrollPercentage / 100})`;
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.interactive-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // 3D Card Tilt
+        document.querySelectorAll('.interactive-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            });
+        });
+
+        // Resize canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             init();
-            animate();
+        });
 
-            // Scroll Progress
-            window.addEventListener('scroll', () => {
-                const scrollProgress = document.querySelector('.scroll-progress');
-                const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                scrollProgress.style.transform = `scaleX(${scrollPercentage / 100})`;
-            });
+        // ============ MOBILE MENU TOGGLE ============
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const burgerMenu = document.querySelector('.burger-menu');
 
-            // Scroll Animations
-            const observerOptions = {
-                threshold: 0.2,
-                rootMargin: '0px 0px -100px 0px'
-            };
+            navLinks.classList.toggle('active');
+            burgerMenu.classList.toggle('active');
+        }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.interactive-card').forEach(card => {
-                observer.observe(card);
-            });
-
-            // 3D Card Tilt
-            document.querySelectorAll('.interactive-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-
-                    const rotateX = (y - centerY) / 15;
-                    const rotateY = (centerX - x) / 15;
-
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.02)`;
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
-                });
-            });
-
-            // Resize canvas
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                init();
-            });
-
-            // ============ MOBILE MENU TOGGLE ============
-            function toggleMobileMenu() {
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
                 const navLinks = document.querySelector('.nav-links');
                 const burgerMenu = document.querySelector('.burger-menu');
 
-                navLinks.classList.toggle('active');
-                burgerMenu.classList.toggle('active');
-            }
-
-            // Close mobile menu when clicking on links
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    const navLinks = document.querySelector('.nav-links');
-                    const burgerMenu = document.querySelector('.burger-menu');
-
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        burgerMenu.classList.remove('active');
-                    }
-                });
-            });
-
-            // ============= NEW FEATURES JAVASCRIPT ============= //
-
-            // Search Functionality
-            function performSearch() {
-                const searchInput = document.getElementById('searchInput');
-                const query = searchInput.value.trim();
-                if (query) {
-                    alert(`🔍 ძებნა: "${query}"\n\nეს ფუნქცია შემდგომში დაუკავშირდება რეალურ საძიებო სერვისს.`);
-                    console.log('Search query:', query);
-                }
-            }
-
-            // Search on Enter key
-            document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    performSearch();
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    burgerMenu.classList.remove('active');
                 }
             });
+        });
 
-            // Theme Toggle Function
-            function toggleTheme() {
-                document.body.classList.toggle('light-mode');
-                const themeIcon = document.getElementById('themeIcon');
+        // ============= NEW FEATURES JAVASCRIPT ============= //
 
-                if (document.body.classList.contains('light-mode')) {
-                    themeIcon.className = 'fas fa-sun';
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    themeIcon.className = 'fas fa-moon';
-                    localStorage.setItem('theme', 'dark');
-                }
+        // Search Functionality
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`🔍 ძებნა: "${query}"\n\nეს ფუნქცია შემდგომში დაუკავშირდება რეალურ საძიებო სერვისს.`);
+                console.log('Search query:', query);
             }
+        }
 
-            // Load saved theme preference
-            window.addEventListener('load', () => {
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'light') {
-                    document.body.classList.add('light-mode');
-                    document.getElementById('themeIcon').className = 'fas fa-sun';
-                }
+        // Search on Enter key
+        document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeIcon = document.getElementById('themeIcon');
+
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme preference
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+        });
+
+
+
+        // Chat Widget Function
+        function openChat() {
+            alert('💬 Live Chat\n\nეს ფუნქცია მალე დაკავშირდება Discord/Telegram integration-თან!\n\nChat support მალე ხელმისაწვდომი იქნება.');
+            console.log('Chat widget clicked');
+        }
+
+        // ============= HERO SLIDER LOGIC ============= //
+        const sliderWrapper = document.getElementById('heroSlider');
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        window.updateSlider = function () {
+            if (!sliderWrapper) return;
+            sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
             });
 
-
-
-            // Chat Widget Function
-            function openChat() {
-                alert('💬 Live Chat\n\nეს ფუნქცია მალე დაკავშირდება Discord/Telegram integration-თან!\n\nChat support მალე ხელმისაწვდომი იქნება.');
-                console.log('Chat widget clicked');
-            }
-
-            // ============= HERO SLIDER LOGIC ============= //
-            const sliderWrapper = document.getElementById('heroSlider');
-            const slides = document.querySelectorAll('.hero-slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-            let slideInterval;
-
-            window.updateSlider = function () {
-                if (!sliderWrapper) return;
-                sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-                slides.forEach((slide, index) => {
-                    slide.classList.toggle('active', index === currentSlide);
-                });
-
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-
-            window.moveSlide = function (direction) {
-                console.log('Moving slide:', direction);
-                currentSlide += direction;
-                if (currentSlide >= totalSlides) currentSlide = 0;
-                if (currentSlide < 0) currentSlide = totalSlides - 1;
-
-                window.updateSlider();
-                window.resetTimer();
-            }
-
-            window.goToSlide = function (index) {
-                console.log('Going to slide:', index);
-                currentSlide = index;
-                window.updateSlider();
-                window.resetTimer();
-            }
-
-            window.startTimer = function () {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(() => {
-                    window.moveSlide(1);
-                }, 5000);
-            }
-
-            window.resetTimer = function () {
-                window.startTimer();
-            }
-
-            // Add Event Listeners - Reliable Method
-            if (prevBtn) {
-                prevBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    window.moveSlide(-1);
-                };
-            }
-
-            if (nextBtn) {
-                nextBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    window.moveSlide(1);
-                };
-            }
-
-            dots.forEach(dot => {
-                dot.onclick = (e) => {
-                    e.stopPropagation();
-                    const index = parseInt(dot.getAttribute('data-index'));
-                    window.goToSlide(index);
-                };
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
             });
+        }
 
-            // Initialize Slider
+        window.moveSlide = function (direction) {
+            console.log('Moving slide:', direction);
+            currentSlide += direction;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+
+            window.updateSlider();
+            window.resetTimer();
+        }
+
+        window.goToSlide = function (index) {
+            console.log('Going to slide:', index);
+            currentSlide = index;
+            window.updateSlider();
+            window.resetTimer();
+        }
+
+        window.startTimer = function () {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                window.moveSlide(1);
+            }, 5000);
+        }
+
+        window.resetTimer = function () {
             window.startTimer();
+        }
 
-            // Slide Buttons Functionality
-            document.querySelectorAll('.slide-btn').forEach((btn, index) => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    console.log('Button clicked:', index);
+        // Add Event Listeners - Reliable Method
+        if (prevBtn) {
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                window.moveSlide(-1);
+            };
+        }
 
-                    if (index === 0) {
-                        // Slide 1: Scroll to games
-                        const gamesSection = document.getElementById('games') || document.querySelector('.cards-section');
-                        if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' });
-                    } else if (index === 1) {
-                        // Slide 2: Scroll to news
-                        const newsSection = document.getElementById('news') || document.querySelector('.cards-section');
-                        if (newsSection) newsSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
+        if (nextBtn) {
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                window.moveSlide(1);
+            };
+        }
+
+        dots.forEach(dot => {
+            dot.onclick = (e) => {
+                e.stopPropagation();
+                const index = parseInt(dot.getAttribute('data-index'));
+                window.goToSlide(index);
+            };
+        });
+
+        // Initialize Slider
+        window.startTimer();
+
+        // Slide Buttons Functionality
+        document.querySelectorAll('.slide-btn').forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('Button clicked:', index);
+
+                if (index === 0) {
+                    // Slide 1: Scroll to games
+                    const gamesSection = document.getElementById('games') || document.querySelector('.cards-section');
+                    if (gamesSection) gamesSection.scrollIntoView({ behavior: 'smooth' });
+                } else if (index === 1) {
+                    // Slide 2: Scroll to news
+                    const newsSection = document.getElementById('news') || document.querySelector('.cards-section');
+                    if (newsSection) newsSection.scrollIntoView({ behavior: 'smooth' });
+                }
             });
-            // ============= LIVE STATS LOGIC (SIDEBAR) ============= //
+        });
+        // ============= LIVE STATS LOGIC (SIDEBAR) ============= //
 
-            let mainStatsGames = [
-                { name: "Roblox", count: 7200400, category: "Sandbox" },
-                { name: "Fortnite", count: 2950320, category: "Battle Royale" },
-                { name: "Counter-Strike 2", count: 1547800, category: "Shooter" }, // Scaled to Steam Peak +
-                { name: "Minecraft", count: 1850100, category: "Sandbox" },
-                { name: "League of Legends", count: 1550600, category: "MOBA" },
-                { name: "PUBG: Battlegrounds", count: 710300, category: "Battle Royale" }, // Reduced to Steam Peak
-                { name: "Valorant", count: 1155400, category: "Shooter" },
-                { name: "Apex Legends", count: 420200, category: "Battle Royale" }, // Reduced to Steam Peak
-                { name: "Dota 2", count: 810500, category: "MOBA" }, // Reduced to Steam Peak
-                { name: "Grand Theft Auto V", count: 210600, category: "Action" }, // Reduced to Steam Only
-                { name: "Call of Duty", count: 150800, category: "Shooter" }, // Reduced to Steam Only
-                { name: "Genshin Impact", count: 450200, category: "RPG" },
-                { name: "Naraka: Bladepoint", count: 320100, category: "Action" },
-                { name: "Rocket League", count: 220400, category: "Sports" }, // Console heavy estimate logic kept? No, reduced.
-                { name: "Overwatch 2", count: 77500, category: "Shooter" } // Steam Only
-            ];
+        let mainStatsGames = [
+            { name: "Roblox", count: 7200400, category: "Sandbox" },
+            { name: "Fortnite", count: 2950320, category: "Battle Royale" },
+            { name: "Counter-Strike 2", count: 1547800, category: "Shooter" }, // Scaled to Steam Peak +
+            { name: "Minecraft", count: 1850100, category: "Sandbox" },
+            { name: "League of Legends", count: 1550600, category: "MOBA" },
+            { name: "PUBG: Battlegrounds", count: 710300, category: "Battle Royale" }, // Reduced to Steam Peak
+            { name: "Valorant", count: 1155400, category: "Shooter" },
+            { name: "Apex Legends", count: 420200, category: "Battle Royale" }, // Reduced to Steam Peak
+            { name: "Dota 2", count: 810500, category: "MOBA" }, // Reduced to Steam Peak
+            { name: "Grand Theft Auto V", count: 210600, category: "Action" }, // Reduced to Steam Only
+            { name: "Call of Duty", count: 150800, category: "Shooter" }, // Reduced to Steam Only
+            { name: "Genshin Impact", count: 450200, category: "RPG" },
+            { name: "Naraka: Bladepoint", count: 320100, category: "Action" },
+            { name: "Rocket League", count: 220400, category: "Sports" }, // Console heavy estimate logic kept? No, reduced.
+            { name: "Overwatch 2", count: 77500, category: "Shooter" } // Steam Only
+        ];
 
-            function formatStatNumber(num) {
-                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+        function formatStatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
-            function renderMainStats() {
-                const container = document.getElementById('main-stats-list');
-                if (!container) return;
+        function renderMainStats() {
+            const container = document.getElementById('main-stats-list');
+            if (!container) return;
 
-                // Sort
-                mainStatsGames.sort((a, b) => b.count - a.count);
+            // Sort
+            mainStatsGames.sort((a, b) => b.count - a.count);
 
-                let html = '';
-                mainStatsGames.forEach((game, index) => {
-                    const rank = index + 1;
-                    let rankClass = "";
-                    if (rank === 1) rankClass = "top-1";
-                    if (rank === 2) rankClass = "top-2";
-                    if (rank === 3) rankClass = "top-3";
+            let html = '';
+            mainStatsGames.forEach((game, index) => {
+                const rank = index + 1;
+                let rankClass = "";
+                if (rank === 1) rankClass = "top-1";
+                if (rank === 2) rankClass = "top-2";
+                if (rank === 3) rankClass = "top-3";
 
-                    html += `
+                html += `
                     <div class="stat-row">
                         <div class="stat-rank ${rankClass}">#${rank}</div>
                         <div class="stat-info">
@@ -3738,265 +3605,144 @@
                         </div>
                     </div>
                 `;
-                });
-                container.innerHTML = html;
-            }
+            });
+            container.innerHTML = html;
+        }
 
-            async function fetchMainStats() {
-                try {
-                    // FORCE NO-CACHE: Add timestamp + NEW v3 SCRAPER
-                    const response = await fetch('get_live_stats_v3.php?t=' + Date.now());
-                    const data = await response.json();
+        async function fetchMainStats() {
+            try {
+                // FORCE NO-CACHE: Add timestamp + NEW v3 SCRAPER
+                const response = await fetch('get_live_stats_v3.php?t=' + Date.now());
+                const data = await response.json();
 
-                    let updated = false;
-                    mainStatsGames.forEach(game => {
-                        for (const [key, value] of Object.entries(data)) {
-                            if (game.name.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(game.name.toLowerCase())) {
-                                if (game.count !== value) { // Update on ANY change
-                                    game.count = value;
-                                    updated = true;
-                                }
-                                break;
+                let updated = false;
+                mainStatsGames.forEach(game => {
+                    for (const [key, value] of Object.entries(data)) {
+                        if (game.name.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(game.name.toLowerCase())) {
+                            if (game.count !== value) { // Update on ANY change
+                                game.count = value;
+                                updated = true;
                             }
-                        }
-                    });
-
-                    if (updated) {
-                        renderMainStats();
-
-                        const badge = document.getElementById('live-badge-main');
-                        if (badge) {
-                            const original = badge.innerHTML;
-                            badge.style.borderColor = '#00ff88';
-                            badge.style.color = '#00ff88';
-                            badge.innerHTML = '<i class="fas fa-check"></i> UPDATED';
-                            setTimeout(() => {
-                                badge.style.borderColor = 'var(--accent)';
-                                badge.style.color = 'var(--accent)';
-                                badge.innerHTML = original;
-                            }, 2000);
+                            break;
                         }
                     }
-                } catch (error) {
-                    console.log("Stats fetch pending...");
+                });
+
+                if (updated) {
+                    renderMainStats();
+
+                    const badge = document.getElementById('live-badge-main');
+                    if (badge) {
+                        const original = badge.innerHTML;
+                        badge.style.borderColor = '#00ff88';
+                        badge.style.color = '#00ff88';
+                        badge.innerHTML = '<i class="fas fa-check"></i> UPDATED';
+                        setTimeout(() => {
+                            badge.style.borderColor = 'var(--accent)';
+                            badge.style.color = 'var(--accent)';
+                            badge.innerHTML = original;
+                        }, 2000);
+                    }
                 }
+            } catch (error) {
+                console.log("Stats fetch pending...");
             }
+        }
 
-            function startMainStatsLive() {
-                setInterval(() => {
-                    const numUpdates = Math.floor(Math.random() * 3) + 1;
-
-                    for (let i = 0; i < numUpdates; i++) {
-                        const index = Math.floor(Math.random() * mainStatsGames.length);
-                        const game = mainStatsGames[index];
-
-                        const volatility = game.count > 1000000 ? 200 : 30;
-                        const change = Math.floor(Math.random() * (volatility * 2)) - volatility;
-
-                        if (change === 0) continue;
-
-                        game.count += change;
-                        if (game.count < 0) game.count = 0;
-
-                        const countEl = document.getElementById(`m-count-${index}`);
-                        const changeEl = document.getElementById(`m-change-${index}`);
-
-                        if (countEl) countEl.innerText = formatStatNumber(game.count);
-
-                        if (changeEl) {
-                            const icon = change > 0 ? '▲' : '▼';
-                            const cls = change > 0 ? 'stat-up' : 'stat-down';
-                            changeEl.className = `stat-change ${cls}`;
-                            changeEl.innerHTML = `${icon} ${Math.abs(change)}`;
-                            setTimeout(() => {
-                                if (changeEl) changeEl.innerHTML = '';
-                            }, 1000);
-                        }
-                    }
-                }, 800);
-            }
-
-            // Initialize Main Page Stats
-            renderMainStats(); // Initial Sort & Draw
-            startMainStatsLive(); // Start small fluctuations
-            fetchMainStats(); // Get Real Data immediately
-
-            // SYNC WITH SERVER EVERY 10 SECONDS (Very Fast Updates)
+        function startMainStatsLive() {
             setInterval(() => {
-                fetchMainStats();
-            }, 10000);
+                const numUpdates = Math.floor(Math.random() * 3) + 1;
 
-            // ============ TOP SELLERS FETCH LOGIC ============
-            async function fetchTopSellers() {
-                // Google Apps Script Proxy (Provided by User)
-                const GAS_PROXY_URL = "https://script.google.com/macros/s/AKfycbziwhNPA4mQbrP-7pwRGMcGvSBawji9gvnmlhEYgtCdRhQueXyLnrN327sLRkKjjYEZ/exec";
-                const list = document.getElementById('top-sellers-list');
+                for (let i = 0; i < numUpdates; i++) {
+                    const index = Math.floor(Math.random() * mainStatsGames.length);
+                    const game = mainStatsGames[index];
 
-                // Helper to render games
-                function renderGames(games) {
-                    if (!games || games.length === 0) {
-                        list.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No official data available.</div>';
-                        return;
+                    const volatility = game.count > 1000000 ? 200 : 30;
+                    const change = Math.floor(Math.random() * (volatility * 2)) - volatility;
+
+                    if (change === 0) continue;
+
+                    game.count += change;
+                    if (game.count < 0) game.count = 0;
+
+                    const countEl = document.getElementById(`m-count-${index}`);
+                    const changeEl = document.getElementById(`m-change-${index}`);
+
+                    if (countEl) countEl.innerText = formatStatNumber(game.count);
+
+                    if (changeEl) {
+                        const icon = change > 0 ? '▲' : '▼';
+                        const cls = change > 0 ? 'stat-up' : 'stat-down';
+                        changeEl.className = `stat-change ${cls}`;
+                        changeEl.innerHTML = `${icon} ${Math.abs(change)}`;
+                        setTimeout(() => {
+                            if (changeEl) changeEl.innerHTML = '';
+                        }, 1000);
                     }
+                }
+            }, 800);
+        }
 
-                    let html = '';
-                    games.forEach(game => {
-                        // Use fallback images if properties missing
-                        const img = game.image_header || game.image_capsule || `https://cdn.akamai.steamstatic.com/steam/apps/${game.id}/header.jpg`;
+        // Initialize Main Page Stats
+        renderMainStats(); // Initial Sort & Draw
+        startMainStatsLive(); // Start small fluctuations
+        fetchMainStats(); // Get Real Data immediately
 
-                        html += `
-                    <div class="stats-row" style="cursor: pointer; transition: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0;" onclick="window.open('${game.link}', '_blank')">
-                        <div class="game-info" style="display: flex; align-items: center; gap: 15px;">
-                            <span class="rank-number" style="color: #FFD700; width: 25px; font-weight: bold; font-size: 1.1rem; text-align: center;">#${game.rank}</span>
-                            <div class="game-icon-wrapper" style="width: 120px; height: 55px; overflow: hidden; border-radius: 4px; border: 1px solid #333; position: relative;">
-                                <img src="${img}" alt="${game.name}" class="game-icon" style="width: 100%; height: 100%; object-fit: cover;">
+        // SYNC WITH SERVER EVERY 10 SECONDS (Very Fast Updates)
+        setInterval(() => {
+            fetchMainStats();
+        }, 10000);
+
+        // ============ TOP SELLERS FETCH LOGIC ============
+        async function fetchTopSellers() {
+            const list = document.getElementById('top-sellers-list');
+            try {
+                // Use a cache-buster or regular fetch
+                const response = await fetch('get_top_sellers.php?t=' + Date.now());
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const games = await response.json();
+
+                if (!games || games.length === 0) {
+                    list.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No data available.</div>';
+                    return;
+                }
+
+                let html = '';
+                games.forEach(game => {
+                    html += `
+                    <div class="stats-row" style="cursor: pointer; transition: 0.2s;" onclick="window.open('${game.link}', '_blank')">
+                        <div class="game-info">
+                            <span class="rank-number" style="color: #FFD700; width: 30px; font-weight: bold;">#${game.rank}</span>
+                            <div class="game-icon-wrapper">
+                                <img src="${game.image_header || game.image_capsule}" alt="${game.name}" class="game-icon" style="border-radius: 4px; border: 1px solid #333;">
                             </div>
-                            <div class="game-details" style="display: flex; flex-direction: column;">
-                                <span class="game-name" style="color: #fff; font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;">${game.name}</span>
-                                <span class="game-category" style="color: #888; font-size: 0.75rem;"><i class="fab fa-steam"></i> Official Chart</span>
+                            <div class="game-details">
+                                <span class="game-name" style="color: #fff;">${game.name}</span>
+                                <span class="game-category" style="color: #666;">Official Steam Data</span>
                             </div>
                         </div>
-                        <div class="player-count" style="margin-left: auto;">
-                            <span class="count-value" style="color: #FFD700; font-size: 0.8rem; background: rgba(255,215,0,0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,215,0,0.2);">TOP SELLER</span>
+                        <div class="player-count">
+                            <span class="count-value" style="color: #FFD700; font-size: 0.9rem;">TOP SELLER</span>
                         </div>
                     </div>
                     `;
-                    });
-                    list.innerHTML = html;
-                }
+                });
 
-                try {
-                    // Attempt to fetch from GAS Proxy (Live connection)
-                    const response = await fetch(GAS_PROXY_URL);
-                    if (!response.ok) throw new Error("Proxy error");
+                list.innerHTML = html;
 
-                    // Fetch text to keep connection alive and verify response
-                    await response.text();
-
-                    // Since parsing raw HTML is complex, we render the verified fallback data 
-                    // but the successful fetch confirms the "Live" connection is active.
-                    console.log("GAS Live Proxy: Connection successful.");
-                    renderGames(fallbackData);
-
-                } catch (error) {
-                    console.warn('Proxy fetch failed, using Fallback:', error);
-
-                    // FALLBACK OFFICIAL DATA (Steam Global Top Sellers Snapshot - Verified)
-                    const fallbackData = [
-                        { rank: 1, name: "Counter-Strike 2", id: "730", link: "https://store.steampowered.com/app/730" },
-                        { rank: 2, name: "Mewgenics", id: "686060", link: "https://store.steampowered.com/app/686060" },
-                        { rank: 3, name: "Marvel Rivals", id: "2767030", link: "https://store.steampowered.com/app/2767030" },
-                        { rank: 4, name: "Apex Legends™", id: "1172470", link: "https://store.steampowered.com/app/1172470" },
-                        { rank: 5, name: "HELLDIVERS™ 2", id: "553850", link: "https://store.steampowered.com/app/553850" },
-                        { rank: 6, name: "REANIMAL", id: "2129530", link: "https://store.steampowered.com/app/2129530" },
-                        { rank: 7, name: "Resident Evil Requiem", id: "2050650", image_header: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg", link: "https://store.steampowered.com/sub/1424522" },
-                        { rank: 8, name: "PUBG: BATTLEGROUNDS", id: "578080", link: "https://store.steampowered.com/app/578080" },
-                        { rank: 9, name: "Diablo II: Resurrected – Infernal Edition", id: "2536520", link: "https://store.steampowered.com/app/2536520" },
-                        { rank: 10, name: "Heartopia", id: "4025700", link: "https://store.steampowered.com/app/4025700" },
-                        { rank: 11, name: "ARC Raiders", id: "1808500", link: "https://store.steampowered.com/app/1808500" },
-                        { rank: 12, name: "Cyberpunk 2077", id: "1091500", link: "https://store.steampowered.com/app/1091500" },
-                        { rank: 13, name: "Resident Evil 4", id: "2050650", link: "https://store.steampowered.com/app/2050650" },
-                        { rank: 14, name: "Steam Deck", id: "1675200", link: "https://store.steampowered.com/app/1675200" },
-                        { rank: 15, name: "Overwatch® 2", id: "2357570", link: "https://store.steampowered.com/app/2357570" }
-                    ];
-
-                    renderGames(fallbackData);
-                }
+            } catch (error) {
+                console.error('Error fetching top sellers:', error);
+                list.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">Unable to load official charts.</div>';
             }
+        }
 
-            // Initial Fetch
-            // Initial Fetch
-            fetchTopSellersTextOnly();
-            // Refresh every 10 seconds (Live Mode)
-            setInterval(fetchTopSellersTextOnly, 10000);
+        // Initial Fetch
+        fetchTopSellers();
+        // Refresh every 5 minutes
+        setInterval(fetchTopSellers, 300000);
 
-            // new function for text-only display
-            async function fetchTopSellersTextOnly() {
-                const list = document.getElementById('top-sellers-list');
-                // User provided GAS URL
-                const GAS_PROXY_URL = "https://script.google.com/macros/s/AKfycbziwhNPA4mQbrP-7pwRGMcGvSBawji9gvnmlhEYgtCdRhQueXyLnrN327sLRkKjjYEZ/exec";
-
-                function renderGames(games) {
-                    if (!games || games.length === 0) {
-                        list.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No official data available.</div>';
-                        return;
-                    }
-
-                    let html = '';
-                    games.forEach((game, index) => {
-                        const rank = game.rank || (index + 1);
-                        const link = game.link || `https://store.steampowered.com/app/${game.id}`;
-
-                        // TEXT ONLY ROW (No Images, No Badges)
-                        html += `
-                    <div class="stats-row" style="cursor: pointer; transition: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px 0;" onclick="window.open('${link}', '_blank')">
-                        <div class="game-info" style="display: flex; align-items: center; gap: 15px;">
-                            <span class="rank-number" style="color: #FFD700; width: 30px; font-weight: bold; font-size: 1.2rem; text-align: center;">#${rank}</span>
-                            <div class="game-details" style="display: flex; flex-direction: column;">
-                                <span class="game-name" style="color: #fff; font-weight: 600; font-size: 1.0rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 280px;">${game.name}</span>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                    });
-                    list.innerHTML = html;
-                }
-
-                // FALLBACK DATA (Verified Snapshot)
-                const fallbackData = [
-                    { rank: 1, name: "Counter-Strike 2", id: "730", link: "https://store.steampowered.com/app/730" },
-                    { rank: 2, name: "Mewgenics", id: "686060", link: "https://store.steampowered.com/app/686060" },
-                    { rank: 3, name: "Marvel Rivals", id: "2767030", link: "https://store.steampowered.com/app/2767030" },
-                    { rank: 4, name: "Apex Legends™", id: "1172470", link: "https://store.steampowered.com/app/1172470" },
-                    { rank: 5, name: "HELLDIVERS™ 2", id: "553850", link: "https://store.steampowered.com/app/553850" },
-                    { rank: 6, name: "REANIMAL", id: "2129530", link: "https://store.steampowered.com/app/2129530" },
-                    { rank: 7, name: "Resident Evil Requiem", id: "2050650", link: "https://store.steampowered.com/sub/1424522" },
-                    { rank: 8, name: "PUBG: BATTLEGROUNDS", id: "578080", link: "https://store.steampowered.com/app/578080" },
-                    { rank: 9, name: "Diablo II: Resurrected – Infernal Edition", id: "2536520", link: "https://store.steampowered.com/app/2536520" },
-                    { rank: 10, name: "Heartopia", id: "4025700", link: "https://store.steampowered.com/app/4025700" },
-                    { rank: 11, name: "ARC Raiders", id: "1808500", link: "https://store.steampowered.com/app/1808500" },
-                    { rank: 12, name: "Cyberpunk 2077", id: "1091500", link: "https://store.steampowered.com/app/1091500" },
-                    { rank: 13, name: "Resident Evil 4", id: "2050650", link: "https://store.steampowered.com/app/2050650" },
-                    { rank: 14, name: "Steam Deck", id: "1675200", link: "https://store.steampowered.com/app/1675200" },
-                    { rank: 15, name: "Overwatch® 2", id: "2357570", link: "https://store.steampowered.com/app/2357570" }
-                ];
-
-                try {
-                    const response = await fetch(GAS_PROXY_URL);
-                    if (!response.ok) throw new Error('Proxy error');
-
-                    try {
-                        let data = await response.clone().json();
-                        let topSellers = [];
-                        if (data.top_sellers && data.top_sellers.items) {
-                            topSellers = data.top_sellers.items;
-                        } else if (data.cat_topsellers && data.cat_topsellers.items) {
-                            topSellers = data.cat_topsellers.items;
-                        }
-
-                        if (topSellers.length > 0) {
-                            const parsedGames = topSellers.slice(0, 15).map((item, idx) => ({
-                                rank: idx + 1,
-                                name: item.name,
-                                id: item.id,
-                                link: `https://store.steampowered.com/app/${item.id}`
-                            }));
-                            renderGames(parsedGames);
-                            return;
-                        }
-                    } catch (e) { /* Not JSON */ }
-
-                    await response.text();
-                    renderGames(fallbackData);
-
-                } catch (error) {
-                    renderGames(fallbackData);
-                }
-            }
-
-        </script>
-
-
+    </script>
 </body>
 
 </html>

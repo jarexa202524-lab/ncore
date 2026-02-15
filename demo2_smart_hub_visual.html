@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VARIANT 2: Smart Scroll Hub - NCORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff0080;
+        }
+
+        /* SMART SCROLL HUB */
+        .scroll-hub {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9999;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Collapsed State - Progress Circle */
+        .hub-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            box-shadow:
+                0 0 30px rgba(0, 255, 136, 0.4),
+                inset 0 0 20px rgba(0, 255, 136, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .hub-circle:hover {
+            transform: scale(1.1);
+            box-shadow:
+                0 0 40px rgba(0, 255, 136, 0.6),
+                inset 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Progress Ring */
+        .progress-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 3;
+            stroke-dasharray: 170;
+            stroke-dashoffset: 170;
+            transition: stroke-dashoffset 0.3s ease;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        /* Hub Icon */
+        .hub-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            z-index: 1;
+        }
+
+        .hub-percentage {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            z-index: 1;
+        }
+
+        /* Expanded Menu */
+        .hub-menu {
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 0 40px rgba(0, 255, 136, 0.3),
+                inset 0 0 30px rgba(0, 255, 136, 0.05);
+        }
+
+        .scroll-hub.expanded .hub-menu {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .hub-menu::before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid var(--primary);
+        }
+
+        .menu-item {
+            padding: 0.8rem 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .menu-item.active {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--primary);
+        }
+
+        .menu-item-icon {
+            font-size: 1.2rem;
+            min-width: 25px;
+        }
+
+        .menu-item-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .menu-item-check {
+            margin-left: auto;
+            color: var(--primary);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .menu-item.visited .menu-item-check {
+            opacity: 1;
+        }
+
+        /* Demo Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+        }
+
+        #hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
+        }
+
+        #news {
+            background: linear-gradient(135deg, #0a1a0a 0%, #0a0a0a 100%);
+        }
+
+        #games {
+            background: linear-gradient(135deg, #0a0a1a 0%, #0a0a0a 100%);
+        }
+
+        #tech {
+            background: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 100%);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .scroll-hub {
+                right: 1rem;
+            }
+
+            .hub-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .hub-menu {
+                right: 70px;
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- VARIANT 2: SMART SCROLL HUB -->
+    <div class="scroll-hub" id="scrollHub">
+        <div class="hub-circle" onclick="toggleHub()">
+            <svg class="progress-ring" width="60" height="60">
+                <circle class="progress-ring-circle" cx="30" cy="30" r="27"></circle>
+            </svg>
+            <div class="hub-percentage" id="hubPercentage">0%</div>
+        </div>
+
+        <div class="hub-menu">
+            <div class="menu-item active" onclick="scrollToSection('hero')">
+                <span class="menu-item-icon">🏠</span>
+                <span class="menu-item-label">Hero</span>
+                <span class="menu-item-check">✓</span>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('news')">
+                <span class="menu-item-icon">📰</span>
+                <span class="menu-item-label">News</span>
+                <span class="menu-item-check">✓</span>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('games')">
+                <span class="menu-item-icon">🎮</span>
+                <span class="menu-item-label">Games</span>
+                <span class="menu-item-check">✓</span>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('tech')">
+                <span class="menu-item-icon">💻</span>
+                <span class="menu-item-label">Tech</span>
+                <span class="menu-item-check">✓</span>
+            </div>
+            <div class="menu-item" onclick="scrollToTop()">
+                <span class="menu-item-icon">⬆️</span>
+                <span class="menu-item-label">Top</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Sections -->
+    <section id="hero">
+        <div>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">VARIANT 2</div>
+            <div style="font-size: 2rem; color: var(--primary);">Smart Scroll Hub</div>
+            <div style="font-size: 1.2rem; margin-top: 2rem; opacity: 0.7;">
+                → Look at the right side!
+                <br>Click the circle to expand menu
+            </div>
+        </div>
+    </section>
+    <section id="news">NEWS SECTION</section>
+    <section id="games">GAMES SECTION</section>
+    <section id="tech">TECH SECTION</section>
+
+    <script>
+        const hub = document.getElementById('scrollHub');
+        const circle = document.querySelector('.progress-ring-circle');
+        const percentage = document.getElementById('hubPercentage');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        let isExpanded = false;
+
+        // Toggle Hub
+        function toggleHub() {
+            isExpanded = !isExpanded;
+            hub.classList.toggle('expanded', isExpanded);
+        }
+
+        // Scroll to section
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                isExpanded = false;
+                hub.classList.remove('expanded');
+            }, 300);
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                isExpanded = false;
+                hub.classList.remove('expanded');
+            }, 300);
+        }
+
+        // Update progress on scroll
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+
+            // Update percentage
+            percentage.textContent = Math.round(scrollPercent) + '%';
+
+            // Update progress ring
+            const offset = 170 - (170 * scrollPercent) / 100;
+            circle.style.strokeDashoffset = offset;
+
+            // Update active section
+            const sections = ['hero', 'news', 'games', 'tech'];
+            let currentSection = 'hero';
+
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    currentSection = id;
+                }
+
+                // Mark as visited
+                if (rect.top < window.innerHeight) {
+                    const menuItem = Array.from(menuItems).find(item =>
+                        item.querySelector('.menu-item-label').textContent.toLowerCase() === id
+                    );
+                    if (menuItem) menuItem.classList.add('visited');
+                }
+            });
+
+            // Update active state
+            menuItems.forEach(item => {
+                const label = item.querySelector('.menu-item-label').textContent.toLowerCase();
+                item.classList.toggle('active', label === currentSection);
+            });
+        });
+    </script>
+</body>
+
+</html>

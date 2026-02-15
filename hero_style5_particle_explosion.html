@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STYLE 5: Particle Explosion - NCORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff0080;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, #0a1a0a 0%, #000 100%);
+        }
+
+        /* Particle Canvas */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Content Container */
+        .explosion-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* Animated Title */
+        .explosion-title {
+            font-size: clamp(4rem, 10vw, 9rem);
+            font-weight: 900;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 10px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .title-word {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.8));
+            animation: wordPulse 3s ease-in-out infinite;
+        }
+
+        .title-word:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .title-word:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes wordPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.8));
+            }
+
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 50px rgba(0, 212, 255, 1));
+            }
+        }
+
+        /* Category Orbs */
+        .category-orbs {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .orb {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 255, 136, 0.4), transparent);
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow:
+                0 0 30px rgba(0, 255, 136, 0.4),
+                inset 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .orb::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .orb:hover::before {
+            opacity: 1;
+        }
+
+        .orb:hover {
+            transform: scale(1.15) translateY(-10px);
+            box-shadow:
+                0 0 60px rgba(0, 255, 136, 0.8),
+                inset 0 0 40px rgba(0, 255, 136, 0.4);
+        }
+
+        .orb:nth-child(1) {
+            border-color: var(--primary);
+            animation: orbFloat 4s ease-in-out infinite;
+        }
+
+        .orb:nth-child(2) {
+            border-color: var(--secondary);
+            animation: orbFloat 4s ease-in-out infinite;
+            animation-delay: -1.3s;
+        }
+
+        .orb:nth-child(3) {
+            border-color: var(--accent);
+            animation: orbFloat 4s ease-in-out infinite;
+            animation-delay: -2.6s;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .orb-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .orb-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .orb:nth-child(1) .orb-label {
+            color: var(--primary);
+        }
+
+        .orb:nth-child(2) .orb-label {
+            color: var(--secondary);
+        }
+
+        .orb:nth-child(3) .orb-label {
+            color: var(--accent);
+        }
+
+        /* Energy Rings */
+        .energy-ring {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+
+        .energy-ring:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .energy-ring:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            border-color: var(--secondary);
+            animation-delay: -1s;
+        }
+
+        .energy-ring:nth-child(3) {
+            width: 800px;
+            height: 800px;
+            border-color: var(--accent);
+            animation-delay: -2s;
+        }
+
+        @keyframes ringPulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .category-orbs {
+                gap: 2rem;
+            }
+
+            .orb {
+                width: 120px;
+                height: 120px;
+            }
+
+            .orb-icon {
+                font-size: 2.5rem;
+            }
+
+            .orb-label {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <!-- Energy Rings -->
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+
+        <!-- Particle Canvas -->
+        <canvas id="particleCanvas"></canvas>
+
+        <!-- Content -->
+        <div class="explosion-container">
+            <h1 class="explosion-title">
+                <span class="title-word">NCORE</span>
+                <br>
+                <span class="title-word">GAMING</span>
+            </h1>
+
+            <div class="category-orbs">
+                <div class="orb">
+                    <div class="orb-icon">🎮</div>
+                    <div class="orb-label">თამაშები</div>
+                </div>
+                <div class="orb">
+                    <div class="orb-icon">💻</div>
+                    <div class="orb-label">ტექნოლოგია</div>
+                </div>
+                <div class="orb">
+                    <div class="orb-icon">⚡</div>
+                    <div class="orb-label">ინოვაცია</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particle Explosion System
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 150;
+        const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = canvas.width / 2;
+                this.y = canvas.height / 2;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 3 + 1;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.radius = Math.random() * 3 + 1;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.01 + 0.005;
+
+                const colors = ['#00ff88', '#00d4ff', '#ff0080'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+
+                // Mouse interaction
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    const force = (100 - distance) / 100;
+                    this.vx -= (dx / distance) * force * 0.5;
+                    this.vy -= (dy / distance) * force * 0.5;
+                }
+
+                // Gravity
+                this.vy += 0.05;
+
+                // Friction
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+
+                if (this.alpha <= 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+
+                // Glow effect
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Mouse movement
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Click to explode
+        canvas.addEventListener('click', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            for (let i = 0; i < 30; i++) {
+                const particle = particles[Math.floor(Math.random() * particles.length)];
+                particle.x = mouse.x;
+                particle.y = mouse.y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5 + 3;
+                particle.vx = Math.cos(angle) * speed;
+                particle.vy = Math.sin(angle) * speed;
+                particle.alpha = 1;
+            }
+        });
+
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Resize handling
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            mouse.x = canvas.width / 2;
+            mouse.y = canvas.height / 2;
+        });
+
+        // Auto explosion every 3 seconds
+        setInterval(() => {
+            for (let i = 0; i < 20; i++) {
+                const particle = particles[Math.floor(Math.random() * particles.length)];
+                particle.reset();
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

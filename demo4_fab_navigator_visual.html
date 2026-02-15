@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VARIANT 4: FAB Navigator - NCORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff0080;
+        }
+
+        /* FLOATING ACTION BUTTON */
+        .fab-container {
+            position: fixed;
+            right: 2rem;
+            bottom: 2rem;
+            z-index: 9999;
+        }
+
+        .fab-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow:
+                0 8px 25px rgba(0, 255, 136, 0.5),
+                0 0 40px rgba(0, 255, 136, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fab-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .fab-button:hover::before {
+            opacity: 1;
+        }
+
+        .fab-button:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow:
+                0 12px 35px rgba(0, 255, 136, 0.7),
+                0 0 60px rgba(0, 255, 136, 0.5),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .fab-button:active {
+            transform: scale(0.95) rotate(90deg);
+        }
+
+        /* FAB Menu */
+        .fab-menu {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            min-width: 220px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 0.5rem;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 10px 40px rgba(0, 255, 136, 0.4),
+                inset 0 0 30px rgba(0, 255, 136, 0.05);
+        }
+
+        .fab-container.open .fab-menu {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .fab-menu::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--primary);
+        }
+
+        .fab-menu-item {
+            padding: 1rem;
+            margin: 0.3rem 0;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fab-menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.2s;
+        }
+
+        .fab-menu-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .fab-menu-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .fab-menu-item.active {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: var(--primary);
+        }
+
+        .fab-menu-icon {
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
+        .fab-menu-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .fab-menu-item:hover .fab-menu-label,
+        .fab-menu-item.active .fab-menu-label {
+            color: var(--primary);
+        }
+
+        /* Show icon based on scroll position */
+        .fab-icon {
+            transition: all 0.3s ease;
+        }
+
+        .fab-container.at-top .fab-icon.scroll-down {
+            display: block;
+        }
+
+        .fab-container.at-top .fab-icon.menu {
+            display: none;
+        }
+
+        .fab-container:not(.at-top) .fab-icon.scroll-down {
+            display: none;
+        }
+
+        .fab-container:not(.at-top) .fab-icon.menu {
+            display: block;
+        }
+
+        /* Demo Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+        }
+
+        #hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
+        }
+
+        #news {
+            background: linear-gradient(135deg, #0a1a0a 0%, #0a0a0a 100%);
+        }
+
+        #games {
+            background: linear-gradient(135deg, #0a0a1a 0%, #0a0a0a 100%);
+        }
+
+        #tech {
+            background: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 100%);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .fab-container {
+                right: 1rem;
+                bottom: 1rem;
+            }
+
+            .fab-button {
+                width: 55px;
+                height: 55px;
+            }
+
+            .fab-menu {
+                min-width: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- VARIANT 4: FAB NAVIGATOR -->
+    <div class="fab-container at-top" id="fabContainer">
+        <div class="fab-button" onclick="toggleFab()">
+            <span class="fab-icon scroll-down">⬇️</span>
+            <span class="fab-icon menu">≡</span>
+        </div>
+
+        <div class="fab-menu">
+            <div class="fab-menu-item" onclick="navigateTo('hero')">
+                <span class="fab-menu-icon">🏠</span>
+                <span class="fab-menu-label">Back to Hero</span>
+            </div>
+            <div class="fab-menu-item" onclick="navigateTo('news')">
+                <span class="fab-menu-icon">📰</span>
+                <span class="fab-menu-label">News</span>
+            </div>
+            <div class="fab-menu-item" onclick="navigateTo('games')">
+                <span class="fab-menu-icon">🎮</span>
+                <span class="fab-menu-label">Games</span>
+            </div>
+            <div class="fab-menu-item" onclick="navigateTo('tech')">
+                <span class="fab-menu-icon">💻</span>
+                <span class="fab-menu-label">Tech</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Sections -->
+    <section id="hero">
+        <div>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">VARIANT 4</div>
+            <div style="font-size: 2rem; color: var(--primary);">FAB Navigator</div>
+            <div style="font-size: 1.2rem; margin-top: 2rem; opacity: 0.7;">
+                ↘️ Look at bottom-right corner!
+                <br>Button changes based on position
+            </div>
+        </div>
+    </section>
+    <section id="news">NEWS SECTION</section>
+    <section id="games">GAMES SECTION</section>
+    <section id="tech">TECH SECTION</section>
+
+    <script>
+        const fabContainer = document.getElementById('fabContainer');
+        const menuItems = document.querySelectorAll('.fab-menu-item');
+        const sections = ['hero', 'news', 'games', 'tech'];
+        let isOpen = false;
+
+        // Toggle FAB menu
+        function toggleFab() {
+            if (window.scrollY < 100) {
+                // At top - scroll down
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            } else {
+                // Not at top - toggle menu
+                isOpen = !isOpen;
+                fabContainer.classList.toggle('open', isOpen);
+            }
+        }
+
+        // Navigate to section
+        function navigateTo(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            isOpen = false;
+            fabContainer.classList.remove('open');
+        }
+
+        // Update on scroll
+        window.addEventListener('scroll', () => {
+            // Change icon based on position
+            if (window.scrollY < 100) {
+                fabContainer.classList.add('at-top');
+            } else {
+                fabContainer.classList.remove('at-top');
+            }
+
+            // Update active menu item
+            let currentSection = 'hero';
+
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    currentSection = id;
+                }
+            });
+
+            menuItems.forEach(item => {
+                const label = item.querySelector('.fab-menu-label').textContent.toLowerCase();
+                const isActive = label.includes(currentSection) ||
+                    (currentSection === 'hero' && label.includes('hero'));
+                item.classList.toggle('active', isActive);
+            });
+
+            // Close menu on scroll
+            if (isOpen) {
+                isOpen = false;
+                fabContainer.classList.remove('open');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!fabContainer.contains(e.target) && isOpen) {
+                isOpen = false;
+                fabContainer.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+
+</html>

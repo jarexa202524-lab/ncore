@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STYLE 3: Neon Sign - NCORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #050505;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff0080;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000 100%);
+        }
+
+        /* Neon Container */
+        .neon-container {
+            text-align: center;
+            position: relative;
+        }
+
+        /* Neon Title */
+        .neon-title {
+            font-size: clamp(4rem, 10vw, 9rem);
+            font-weight: 900;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 15px;
+            color: var(--primary);
+            text-shadow:
+                0 0 10px var(--primary),
+                0 0 20px var(--primary),
+                0 0 40px var(--primary),
+                0 0 80px var(--primary),
+                0 0 120px var(--primary);
+            animation: neonFlicker 3s infinite alternate;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes neonFlicker {
+
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                text-shadow:
+                    0 0 10px var(--primary),
+                    0 0 20px var(--primary),
+                    0 0 40px var(--primary),
+                    0 0 80px var(--primary),
+                    0 0 120px var(--primary);
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                text-shadow:
+                    0 0 5px var(--primary),
+                    0 0 10px var(--primary);
+                opacity: 0.8;
+            }
+        }
+
+        .neon-subtitle {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 12px;
+            color: var(--secondary);
+            text-shadow:
+                0 0 10px var(--secondary),
+                0 0 20px var(--secondary),
+                0 0 40px var(--secondary),
+                0 0 80px var(--secondary);
+            animation: neonFlicker2 4s infinite alternate;
+            animation-delay: -1s;
+        }
+
+        @keyframes neonFlicker2 {
+
+            0%,
+            15%,
+            19%,
+            23%,
+            48%,
+            52%,
+            100% {
+                text-shadow:
+                    0 0 10px var(--secondary),
+                    0 0 20px var(--secondary),
+                    0 0 40px var(--secondary),
+                    0 0 80px var(--secondary);
+                opacity: 1;
+            }
+
+            17%,
+            21%,
+            50% {
+                text-shadow:
+                    0 0 5px var(--secondary),
+                    0 0 10px var(--secondary);
+                opacity: 0.7;
+            }
+        }
+
+        /* Neon Border Frame */
+        .neon-frame {
+            position: absolute;
+            border: 4px solid var(--primary);
+            border-radius: 20px;
+            box-shadow:
+                0 0 20px var(--primary),
+                inset 0 0 20px rgba(0, 255, 136, 0.2);
+            animation: framePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes framePulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 20px var(--primary),
+                    inset 0 0 20px rgba(0, 255, 136, 0.2);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 40px var(--primary),
+                    inset 0 0 40px rgba(0, 255, 136, 0.4);
+            }
+        }
+
+        .frame-top {
+            top: -50px;
+            left: 10%;
+            right: 10%;
+            height: 30px;
+        }
+
+        .frame-bottom {
+            bottom: -50px;
+            left: 10%;
+            right: 10%;
+            height: 30px;
+        }
+
+        /* Category Pills */
+        .neon-categories {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .neon-pill {
+            position: relative;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: transparent;
+            border: 3px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow:
+                0 0 10px var(--accent),
+                0 0 20px var(--accent);
+            box-shadow:
+                0 0 20px var(--accent),
+                inset 0 0 10px rgba(255, 0, 128, 0.2);
+        }
+
+        .neon-pill:hover {
+            transform: scale(1.1);
+            text-shadow:
+                0 0 15px var(--accent),
+                0 0 30px var(--accent),
+                0 0 45px var(--accent);
+            box-shadow:
+                0 0 40px var(--accent),
+                inset 0 0 20px rgba(255, 0, 128, 0.4);
+        }
+
+        .neon-pill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Neon Tube Lines */
+        .neon-line {
+            position: absolute;
+            height: 2px;
+            background: var(--primary);
+            box-shadow:
+                0 0 10px var(--primary),
+                0 0 20px var(--primary);
+            animation: lineGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes lineGlow {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 10px var(--primary),
+                    0 0 20px var(--primary);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 20px var(--primary),
+                    0 0 40px var(--primary);
+            }
+        }
+
+        .line-1 {
+            top: 20%;
+            left: 5%;
+            width: 150px;
+            transform: rotate(-45deg);
+        }
+
+        .line-2 {
+            top: 20%;
+            right: 5%;
+            width: 150px;
+            transform: rotate(45deg);
+        }
+
+        .line-3 {
+            bottom: 20%;
+            left: 5%;
+            width: 150px;
+            transform: rotate(45deg);
+        }
+
+        .line-4 {
+            bottom: 20%;
+            right: 5%;
+            width: 150px;
+            transform: rotate(-45deg);
+        }
+
+        /* Neon Dots */
+        .neon-dot {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--secondary);
+            box-shadow:
+                0 0 20px var(--secondary),
+                0 0 40px var(--secondary);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 20px var(--secondary),
+                    0 0 40px var(--secondary);
+            }
+
+            50% {
+                transform: scale(1.5);
+                box-shadow:
+                    0 0 30px var(--secondary),
+                    0 0 60px var(--secondary);
+            }
+        }
+
+        .dot-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .dot-2 {
+            top: 10%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        .dot-3 {
+            bottom: 10%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+
+        .dot-4 {
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        @media (max-width: 768px) {
+            .neon-categories {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .neon-pill {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .neon-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <!-- Neon Lines -->
+        <div class="neon-line line-1"></div>
+        <div class="neon-line line-2"></div>
+        <div class="neon-line line-3"></div>
+        <div class="neon-line line-4"></div>
+
+        <!-- Neon Dots -->
+        <div class="neon-dot dot-1"></div>
+        <div class="neon-dot dot-2"></div>
+        <div class="neon-dot dot-3"></div>
+        <div class="neon-dot dot-4"></div>
+
+        <!-- Neon Container -->
+        <div class="neon-container">
+            <!-- Frame -->
+            <div class="neon-frame frame-top"></div>
+            <div class="neon-frame frame-bottom"></div>
+
+            <!-- Title -->
+            <h1 class="neon-title">NCORE</h1>
+            <h2 class="neon-subtitle">GAMING</h2>
+
+            <!-- Categories -->
+            <div class="neon-categories">
+                <div class="neon-pill">თამაშები</div>
+                <div class="neon-pill">ტექნოლოგია</div>
+                <div class="neon-pill">ინოვაცია</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

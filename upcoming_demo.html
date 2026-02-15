@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCore Upcoming Games Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --primary: #00F0FF;
+            --secondary: #FF0055;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            padding: 50px;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .demo-section {
+            margin-bottom: 100px;
+            padding: 40px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .demo-title {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* ================= OPTION 1: NEON CARDS ================= */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: var(--glass);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            color: #fff;
+        }
+
+        .countdown-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .time-segment {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 50px;
+            border: 1px solid var(--secondary);
+        }
+
+        .time-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        /* ================= OPTION 2: CYBERPUNK TERMINAL ================= */
+        .terminal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .terminal-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .terminal-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .terminal-row:hover::before {
+            transform: translateX(100%);
+        }
+
+        .terminal-row:hover {
+            background: rgba(20, 20, 20, 0.95);
+            padding-left: 30px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .t-date {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 1.2rem;
+            min-width: 150px;
+        }
+
+        .t-info {
+            flex-grow: 1;
+        }
+
+        .t-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .t-platform {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .t-countdown {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .t-label {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="margin-bottom: 50px; font-size: 3rem; text-shadow: 0 0 20px #fff;">NCore Upcoming Demos</h1>
+
+    <!-- OPTION 1 -->
+    <div class="demo-section">
+        <h2 class="demo-title">Option 1: The "Neon Cards"</h2>
+        <p>Best for visual impact. Shows cover art.</p>
+
+        <div class="cards-grid">
+            <!-- Game 1 -->
+            <div class="game-card">
+                <img src="https://images.gram.pl/news/esww20260106103226279hyva.jpg" class="card-image" alt="GTA 6">
+                <div class="card-content">
+                    <h3 class="game-title">GTA VI</h3>
+                    <p style="color: #aaa; margin: 0;">Release: Fall 2025</p>
+                    <div class="countdown-box">
+                        <div class="time-segment">
+                            <div class="time-value">584</div>
+                            <div class="time-label">DAYS</div>
+                        </div>
+                        <div class="time-segment">
+                            <div class="time-value">12</div>
+                            <div class="time-label">HRS</div>
+                        </div>
+                        <div class="time-segment">
+                            <div class="time-value">45</div>
+                            <div class="time-label">MINS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 2 -->
+            <div class="game-card">
+                <img src="https://cdn.forza.net/strapi-uploads/assets/large_Forza_Horizon_6_3840x2160_HORI_No_Logo_3658b53925.jpg"
+                    class="card-image" alt="Forza">
+                <div class="card-content">
+                    <h3 class="game-title">Forza Horizon 6</h3>
+                    <p style="color: #aaa; margin: 0;">Release: Pending</p>
+                    <div class="countdown-box">
+                        <div class="time-segment">
+                            <div class="time-value">203</div>
+                            <div class="time-label">DAYS</div>
+                        </div>
+                        <div class="time-segment">
+                            <div class="time-value">08</div>
+                            <div class="time-label">HRS</div>
+                        </div>
+                        <div class="time-segment">
+                            <div class="time-value">30</div>
+                            <div class="time-label">MINS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 3 -->
+            <div class="game-card">
+                <img src="https://cdn.mos.cms.futurecdn.net/yJzVv7T8g9a9j3z5g7t6T8.jpg" class="card-image"
+                    alt="Cyberpunk">
+                <div class="card-content">
+                    <h3 class="game-title">Cyberpunk 2: Orion</h3>
+                    <p style="color: #aaa; margin: 0;">Release: 2028</p>
+                    <div class="countdown-box">
+                        <div class="time-segment">
+                            <div class="time-value">912</div>
+                            <div class="time-label">DAYS</div>
+                        </div>
+                        <div class="time-segment">
+                            <div class="time-value">05</div>
+                            <div class="time-label">HRS</div>
+                        </div>
+                        <div class="time-segment">
+                            <div class="time-value">11</div>
+                            <div class="time-label">MINS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- OPTION 2 -->
+    <div class="demo-section">
+        <h2 class="demo-title">Option 2: The "Hacker Terminal" List</h2>
+        <p>Best for data density and tech vibe. Requires less imagery.</p>
+
+        <div class="terminal-list">
+            <!-- Row 1 -->
+            <div class="terminal-row">
+                <div class="t-date">
+                    2025 <span style="font-size: 0.8rem; display:block; color: #fff;">FALL</span>
+                </div>
+                <div class="t-info">
+                    <h3 class="t-title">Grand Theft Auto VI</h3>
+                    <span class="t-platform">PS5 • XBOX • PC</span>
+                </div>
+                <div class="t-countdown">
+                    584 <span style="font-size: 1rem; color: #fff;">DAYS</span>
+                    <span class="t-label">REMAINING</span>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="terminal-row">
+                <div class="t-date">
+                    2026 <span style="font-size: 0.8rem; display:block; color: #fff;">TBA</span>
+                </div>
+                <div class="t-info">
+                    <h3 class="t-title">Forza Horizon 6</h3>
+                    <span class="t-platform">XBOX • PC • CLOUD</span>
+                </div>
+                <div class="t-countdown">
+                    203 <span style="font-size: 1rem; color: #fff;">DAYS</span>
+                    <span class="t-label">ESTIMATED</span>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="terminal-row">
+                <div class="t-date">
+                    2024 <span style="font-size: 0.8rem; display:block; color: #fff;">NOV 12</span>
+                </div>
+                <div class="t-info">
+                    <h3 class="t-title">Assassin's Creed Shadows</h3>
+                    <span class="t-platform">PC • PS5 • XBOX</span>
+                </div>
+                <div class="t-countdown">
+                    24 <span style="font-size: 1rem; color: #fff;">DAYS</span>
+                    <span class="t-label">REMAINING</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

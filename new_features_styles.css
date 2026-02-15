@@ -1,0 +1,309 @@
+/* ============= NEW FEATURES CSS ============= */
+
+/* 1. Search Bar in Navigation */
+.nav-search-container {
+    position: relative;
+    margin: 0 2rem;
+    flex-shrink: 0;
+}
+
+.nav-search-input {
+    width: 300px;
+    padding: 0.7rem 3rem 0.7rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.nav-search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    width: 400px;
+}
+
+.nav-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-search-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-search-btn:hover {
+    transform: translateY(-50%) scale(1.1) rotate(90deg);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+}
+
+.nav-search-btn i {
+    color: #000;
+    font-size: 0.9rem;
+}
+
+/* 2. Dark/Light Mode Toggle Button */
+.theme-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+    z-index: 9999;
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.1) rotate(180deg);
+    box-shadow: 0 10px 40px rgba(0, 255, 136, 0.6);
+}
+
+.theme-toggle-btn i {
+    color: #000;
+}
+
+/* Light Mode Styles */
+body.light-mode {
+   background: #f5f7fa;
+}
+
+body.light-mode nav {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(0, 255, 136, 0.3);
+}
+
+body.light-mode .logo {
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-mode .nav-links a {
+    color: #1a1a1a;
+}
+
+body.light-mode .nav-search-input {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1a1a1a;
+}
+
+body.light-mode #particle-canvas {
+    opacity: 0.3;
+}
+
+body.light-mode .news-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 255, 136, 0.3);
+}
+
+body.light-mode .news-title,
+body.light-mode .news-description {
+    color: #1a1a1a;
+}
+
+body.light-mode .hero-title-3d .layer-1 {
+    -webkit-text-fill-color: transparent;
+}
+
+/* 3. Live Chat Widget */
+.chat-widget {
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255, 0, 110, 0.4);
+    transition: all 0.3s;
+    z-index: 9999;
+}
+
+.chat-widget:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 40px rgba(255, 0, 110, 0.6);
+}
+
+.chat-widget i {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.chat-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--accent);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    animation: chatPulse 2s infinite;
+}
+
+@keyframes chatPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* 4. Social Media Icons (for Footer) */
+.social-icons-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--primary);
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: all 0.4s;
+    position: relative;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px) rotate(360deg);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #000;
+}
+
+/* 5. Newsletter Subscription Form */
+.newsletter-section {
+    background: rgba(0, 255, 136, 0.05);
+    border: 2px solid rgba(0, 255, 136, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 5rem auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.newsletter-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.newsletter-desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.newsletter-email {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.newsletter-email:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.newsletter-email::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.newsletter-submit {
+    padding: 1rem 3rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    border-radius: 50px;
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.newsletter-submit:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+}
+
+/* Responsive adjustments for new features */
+@media (max-width: 768px) {
+    .nav-search-container {
+        display: none;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .theme-toggle-btn,
+    .chat-widget {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .theme-toggle-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .chat-widget {
+        bottom: 85px;
+        right: 20px;
+    }
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCORE ADMIN | ACCESS CONTROL</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00aaff;
+            --bg: #050505;
+            --panel: rgba(20, 20, 20, 0.95);
+            --danger: #ff003c;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .login-container {
+            width: 400px;
+            padding: 3rem;
+            background: var(--panel);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+            text-align: center;
+            position: relative;
+            z-index: 20;
+            backdrop-filter: blur(10px);
+            animation: pulse-border 4s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+                border-color: var(--primary);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(0, 255, 136, 0.5);
+                border-color: #fff;
+            }
+
+            100% {
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+                border-color: var(--primary);
+            }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+            /* Fix padding issue */
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border: 1px solid var(--primary);
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn:hover {
+            background: var(--primary);
+            box-shadow: 0 0 30px var(--primary);
+            letter-spacing: 5px;
+        }
+
+        .system-msg {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #666;
+            font-family: monospace;
+        }
+
+        /* Glitch Effect */
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff003c;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #00aaff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(10px, 9999px, 30px, 0);
+            }
+
+            20% {
+                clip: rect(30px, 9999px, 10px, 0);
+            }
+
+            40% {
+                clip: rect(50px, 9999px, 80px, 0);
+            }
+
+            100% {
+                clip: rect(70px, 9999px, 20px, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="scanlines"></div>
+
+    <div class="login-container">
+        <h1 class="glitch-text" data-text="SYSTEM ACCESS">SYSTEM ACCESS</h1>
+
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label>Identify User</label>
+                <input type="text" placeholder="ADMIN_ID" required>
+            </div>
+
+            <div class="input-group">
+                <label>Security Key</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="button" class="login-btn" onclick="login()">INITIALIZE</button>
+        </form>
+
+        <div class="system-msg" id="sysMsg">
+            STATUS: WAITING FOR CREDENTIALS...
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const btn = document.querySelector('.login-btn');
+            const msg = document.getElementById('sysMsg');
+
+            btn.innerHTML = 'AUTHENTICATING...';
+            btn.style.opacity = '0.7';
+
+            let dots = 0;
+            const interval = setInterval(() => {
+                dots = (dots + 1) % 4;
+                btn.innerHTML = 'AUTHENTICATING' + '.'.repeat(dots);
+            }, 300);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                msg.style.color = 'var(--primary)';
+                msg.innerHTML = 'ACCESS GRANTED. REDIRECTING...';
+                btn.innerHTML = 'ACCESS GRANTED';
+                btn.style.background = 'var(--primary)';
+
+                // Demo Redirect
+                setTimeout(() => {
+                    alert("ეს არის დემო. რეალური ადმინ პანელი მალე იქნება!");
+                }, 1000);
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>
